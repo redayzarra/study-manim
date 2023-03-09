@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/tutorial2/1080p60/partial_movie_files/FittingObjects/1413466013_665753126_223132457.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/tutorial2/1080p60/partial_movie_files/FittingObjects/1672018281_1168395653_3970046847.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/tutorial2/1080p60/partial_movie_files/FittingObjects/1672018281_3510012566_1982960445.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/tutorial2/1080p60/partial_movie_files/FittingObjects/1672018281_1126353746_1982960445.mp4'
