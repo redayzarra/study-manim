@@ -1,6 +1,6 @@
 from manim import *
 
-class TreeCircle:
+class TreeCircle(Scene):
   def construct(self):
 
     r = ValueTracker(0.5)
