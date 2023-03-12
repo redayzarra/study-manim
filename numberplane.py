@@ -1,6 +1,6 @@
 from manim import *
 
-class Graphing(Scene):
+class SomethingElse(Scene):
   def construct(self):
 
     my_plane = NumberPlane(x_range = [-6, 6], x_length = 5,
@@ -9,7 +9,7 @@ class Graphing(Scene):
     my_plane.add_coordinates()
     my_plane.shift(RIGHT * 3)
 
-    my_function = my_plane.plot(lambda x: 0.1 * (x-5)*x*(x+5),
+    my_function = my_plane.plot(lambda x: 0.1 * (x-5) * x * (x+5),
     x_range = [-6, 6], color = GREEN_B)
     
     area = my_plane.get_area(graph = my_function,
