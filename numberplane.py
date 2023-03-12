@@ -1,10 +1,10 @@
 from manim import *
 
-class SomethingElse(Scene):
+class Graphing(Scene):
   def construct(self):
 
     my_plane = NumberPlane(x_range = [-6, 6], x_length = 5,
-    y_range = [-10, -10], y_length=5)
+    y_range = [-10, 10], y_length=5)
 
     my_plane.add_coordinates()
     my_plane.shift(RIGHT * 3)
