@@ -50,3 +50,14 @@ class DifferentRotations(Scene):
         
         self.play(left_square.animate.rotate(PI), Rotate(right_square, angle = PI), run_time = 2)
         self.wait()
+
+class Text(Scene):
+    def construct(self):
+        name = Tex("ReDay Z.").to_edge(UL, buff = 0.5)
+        square = Square(side_length = 0.5, fill_color = BLUE).shift(LEFT * 3)
+        triangle = Triangle().scale(0.6).to_edge(DR)
+        
+        self.play(Write(name))
+        self.play(DrawBorderThenFill(square), run_time = 2)
+        self.play(Create(triangle))
+        self.wait()
