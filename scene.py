@@ -147,3 +147,36 @@ class Graphing(Scene):
         self.play(Create(VGroup(labels, parabola, func_label)))
         self.wait()
         self.play(Create(area))
+
+
+class UpdaterGraphing(Scene):
+    def construct(self):
+        k = ValueTracker(-4)
+        axis = (
+            Axes(x_range=[-4, 4, 1], y_range=[-2, 16, 2], x_length=10, y_length=6)
+            .to_edge(DOWN)
+            .add_coordinates()
+            .set_color(WHITE)
+        )
+
+        function = axis.plot(lambda x: x**2, x_range=[-4, 4], color=BLUE)
+        slope = always_redraw(
+            lambda: axis.get_secant_slope_group(
+                x=k.get_value(),
+                graph=function,
+                dx=0.01,
+                secant_line_color=GREEN,
+                secant_line_length=3,
+            )
+        )
+
+        point = always_redraw(
+            lambda: Dot().move_to(
+                axis.c2p(k.get_value(), function.underlying_function(k.get_value()))
+            )
+        )
+
+        self.add(axis, function, slope, point)
+        self.wait()
+        self.play(k.animate.set_value(4), run_time=3)
+        self.wait()
