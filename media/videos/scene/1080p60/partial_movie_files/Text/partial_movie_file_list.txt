@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/3977891868_1047093502_223132457.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/2852726489_440530324_1669859736.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/2852726489_2753689521_3870170787.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/2852726489_1704852926_1344269168.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/2852726489_2262899102_257443306.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/2852726489_1147558295_602004015.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/1080p60/partial_movie_files/Text/2852726489_1704852926_683596895.mp4'

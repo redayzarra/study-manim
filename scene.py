@@ -61,3 +61,16 @@ class Text(Scene):
         self.play(DrawBorderThenFill(square), run_time = 2)
         self.play(Create(triangle))
         self.wait()
+
+        self.play(name.animate.to_edge(UR), run_time = 2)
+        self.play(square.animate.scale(2), triangle.animate.to_edge(DL), run_time = 3)
+        self.wait()
+
+class Getters(Scene):
+    def construct(self):
+        rect = Rectangle(color = WHITE, height = 3, width = 2.5).to_edge(UL)
+        circle = Circle().to_edge(DOWN)
+        
+        arrow = Line(start = rect.get_bottom(), end = circle.get_top(), buff = 0.2).add_tip()
+        self.play(Create(VGroup(rect, circle, arrow)))
+        self.wait()
