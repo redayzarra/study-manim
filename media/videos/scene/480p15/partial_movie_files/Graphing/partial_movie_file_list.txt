@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Graphing/1185818338_585739809_223132457.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Graphing/624642324_1578557249_1051979036.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Graphing/624642324_1704852926_521942538.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Graphing/624642324_2560986205_3373599170.mp4'
