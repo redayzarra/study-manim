@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Shifting/1185818338_3534096141_2773927323.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Shifting/624642324_3348006553_2773927323.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Shifting/624642324_2231547318_2773927323.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Shifting/624642324_537739539_2773927323.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/scene/480p15/partial_movie_files/Shifting/624642324_1704852926_1332304265.mp4'
