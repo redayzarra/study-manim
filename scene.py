@@ -71,6 +71,21 @@ class Getters(Scene):
         rect = Rectangle(color = WHITE, height = 3, width = 2.5).to_edge(UL)
         circle = Circle().to_edge(DOWN)
         
-        arrow = Line(start = rect.get_bottom(), end = circle.get_top(), buff = 0.2).add_tip()
+        arrow = always_redraw(lambda: Line(start = rect.get_bottom(), end = circle.get_top(), buff = 0.2).add_tip())
+
         self.play(Create(VGroup(rect, circle, arrow)))
         self.wait()
+        self.play(rect.animate.to_edge(UR), circle.animate.scale(0.5), run_time = 4)
+        
+        
+class Updaters(Scene):
+    def construct(self):
+        num = MathTex("ln(2)")
+        box = always_redraw(lambda: SurroundingRectangle(num, color = WHITE, fill_opacity = 0.4, fill_color = BLUE, buff = 1))
+        name = always_redraw(lambda: Tex("ReDay Z.").next_to(box, DOWN, buff = 0.25))
+        
+        self.play(Create(VGroup(num, box, name)))
+        self.play(num.animate.shift(RIGHT * 2), run_time = 2)
+        self.wait()
+
+        
