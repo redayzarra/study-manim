@@ -88,4 +88,14 @@ class Updaters(Scene):
         self.play(num.animate.shift(RIGHT * 2), run_time = 2)
         self.wait()
 
+class ValueTrackers(Scene):
+    def construct(self):
+        value = ValueTracker(6)
+        num = always_redraw(lambda: DecimalNumber().set_value(value.get_value()))
+        
+        self.play(FadeIn(num))
+        self.wait()
+        
+        self.play(value.animate.set_value(0), run_time = 5, rate_func = smooth)
+        self.wait()
         
