@@ -232,17 +232,68 @@ class Updaters(Scene):
         rectangle = RoundedRectangle(
             stroke_width=8, stroke_color=WHITE, fill_color=BLUE_B, width=4.5, height=2
         ).shift(UP * 3 + LEFT * 4)
-        
-        text = MathTex("\\frac{3}{4} = 0.75").set_color_by_gradient(GREEN, PINK).set_height(1.5)
+
+        text = (
+            MathTex("\\frac{3}{4} = 0.75")
+            .set_color_by_gradient(GREEN, PINK)
+            .set_height(1.5)
+        )
         text.move_to(rectangle.get_center())
         text.add_updater(lambda x: x.move_to(rectangle.get_center()))
-        
+
         self.play(FadeIn(rectangle))
         self.play(Write(text))
-        
-        self.play(rectangle.animate.shift(RIGHT * 1.5 + DOWN * 5), run_time = 6)
+
+        self.play(rectangle.animate.shift(RIGHT * 1.5 + DOWN * 5), run_time=6)
         self.wait()
-        
+
         text.clear_updaters()
-        self.play(rectangle.animate.shift(LEFT * 2 + UP), run_time = 2)
+        self.play(rectangle.animate.shift(LEFT * 2 + UP), run_time=2)
+        self.wait()
+
+
+class Tree(Scene):
+    def construct(self):
+        val = ValueTracker(0.5)
+
+        circle = always_redraw(
+            lambda: Circle(radius=val.get_value(), stroke_color=YELLOW, stroke_width=5)
+        )
+
+        line_radius = always_redraw(
+            lambda: Line(
+                start=circle.get_center(),
+                end=circle.get_bottom(),
+                stroke_color=RED_B,
+                stroke_width=10,
+            )
+        )
+
+        line_circumfrence = always_redraw(
+            lambda: Line(stroke_color=YELLOW, stroke_width=5)
+            .set_length(2 * val.get_value() * PI)
+            .next_to(circle, DOWN, buff=0.2)
+        )
+
+        triangle = always_redraw(
+            lambda: Polygon(
+                circle.get_top(),
+                circle.get_left(),
+                circle.get_right(),
+                fill_color=GREEN_C,
+            )
+        )
+
+        self.play(
+            LaggedStart(
+                Create(circle),
+                DrawBorderThenFill(line_radius),
+                DrawBorderThenFill(triangle),
+                run_time=4,
+                lag_ratio=0.75,
+            )
+        )
+
+        self.play(ReplacementTransform(circle.copy(), line_circumfrence), run_time = 2)
+        self.play(val.animate.set_value(2), run_time = 5)
         self.wait()
