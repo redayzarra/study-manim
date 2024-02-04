@@ -294,6 +294,74 @@ class Tree(Scene):
             )
         )
 
-        self.play(ReplacementTransform(circle.copy(), line_circumfrence), run_time = 2)
-        self.play(val.animate.set_value(2), run_time = 5)
+        self.play(ReplacementTransform(circle.copy(), line_circumfrence), run_time=2)
+        self.play(val.animate.set_value(2), run_time=5)
         self.wait()
+
+
+class GraphingMovement(Scene):
+    def construct(self):
+        axes = Axes(
+            x_range=[0, 5, 1],
+            y_range=[0, 3, 1],
+            x_length=5,
+            y_length=3,
+            axis_config={"include_tip": True, "numbers_to_exclude": [0]},
+        ).add_coordinates()
+
+        axes.to_edge(UR)
+        axis_labels = axes.get_axis_labels(x_label="x", y_label="f(x)")
+
+        graph = axes.plot(lambda x: x**0.5, x_range=[0, 4], color=YELLOW)
+        graphing_all = VGroup(axes, graph, axis_labels)
+
+        self.play(DrawBorderThenFill(axes), Write(axis_labels))
+        self.play(Create(graph))
+        self.play(graphing_all.animate.shift(DOWN * 4))
+        self.play(axes.animate.shift(LEFT * 3), run_time=3)
+
+
+class GraphingFunction(Scene):
+    def construct(self):
+        plane = NumberPlane(x_range=[-6, 6], x_length=5, y_range=[-10, 10], y_length=5)
+        plane.add_coordinates()
+
+        function = plane.plot(
+            lambda x: 0.1 * x * (x - 5) * (x + 5), x_range=[-6, 6], color=GREEN_B
+        )
+
+        area = plane.get_area(graph=function, x_range=[-5, 5], color=[BLUE, YELLOW])
+        label = MathTex("f(x) = 0.1x(x-5)(x-5)").next_to(plane, UP, buff=0.2)
+
+        horizontal = Line(
+            start=plane.c2p(0, function.underlying_function(-2)),
+            end=plane.c2p(-2, function.underlying_function(-2)),
+            stroke_color=YELLOW,
+            stroke_width=3,
+        )
+
+        self.play(DrawBorderThenFill(plane))
+        self.play(Create(function), Write(label))
+        self.play(FadeIn(area))
+        self.play(Create(horizontal))
+
+
+class CoordinateSystem(Scene):
+    def construct(self):
+        plane = NumberPlane(
+            x_range=[-4, 4, 1], x_length=4, y_range=[0, 20, 5], y_length=4
+        ).add_coordinates()
+        plane.shift(LEFT * 3 + DOWN * 1.5)
+
+        graph = plane.plot(lambda x: x**2, x_range=[-4, 4], color=GREEN)
+        area = plane.get_riemann_rectangles(graph=graph, x_range=[-2, 2], dx=0.05)
+
+        axes = Axes(x_range = [-4, 4, 1], x_length = 4, y_range = [-20, 20, 5], y_length = 4).add_coordinates()
+        axes.shift(RIGHT * 3 + DOWN * 1.5)
+        
+        axes_graph = axes.plot(lambda x: 2*x, x_range = [-4, 4], color = YELLOW)
+        v_lines = axes.get_vertical_lines_to_graph(graph = axes_graph, x_range = [-3, 3], num_lines = 12)
+        
+        self.play(Write(plane), Create(axes))
+        self.play(Create(graph), Create(axes_graph), run_time = 2)
+        self.add(area, v_lines)
