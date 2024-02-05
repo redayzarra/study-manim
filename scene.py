@@ -419,3 +419,16 @@ class GraphingPolar(Scene):
         self.add(graph1, graph2, dot1, dot2)
         self.play(value.animate.set_value(PI), run_time = 10, rate_func = linear)
         self.wait()
+
+class Vectors(VectorScene):
+    def construct(self):
+        plane = self.add_plane(animate = True).add_coordinates()
+        vector = self.add_vector([-3, 2], color = YELLOW)
+        
+        basis = self.get_basis_vectors()
+        self.add(basis)
+        
+        self.vector_to_coords(vector = vector)
+        
+        vector2 = self.add_vector([2, 2])
+        self.write_vector_coordinates(vector = vector2)
