@@ -417,18 +417,77 @@ class GraphingPolar(Scene):
             )
         )
         self.add(graph1, graph2, dot1, dot2)
-        self.play(value.animate.set_value(PI), run_time = 10, rate_func = linear)
+        self.play(value.animate.set_value(PI), run_time=10, rate_func=linear)
         self.wait()
+
 
 class Vectors(VectorScene):
     def construct(self):
-        plane = self.add_plane(animate = True).add_coordinates()
-        vector = self.add_vector([-3, 2], color = YELLOW)
-        
+        plane = self.add_plane(animate=True).add_coordinates()
+        vector = self.add_vector([-3, -2], color=YELLOW)
+
         basis = self.get_basis_vectors()
         self.add(basis)
-        
-        self.vector_to_coords(vector = vector)
-        
+
+        self.vector_to_coords(vector=vector)
+
         vector2 = self.add_vector([2, 2])
-        self.write_vector_coordinates(vector = vector2)
+        self.write_vector_coordinates(vector=vector2)
+
+
+class Matrices(LinearTransformationScene):
+    def __init__(self):
+        LinearTransformationScene.__init__(
+            self,
+            show_coordinates=True,
+            leave_ghost_vectors=True,
+            show_basis_vectors=True,
+        )
+
+    def constuct(self):
+        matrix = [[1, 2], [2, 1]]
+        matrix_tex = (
+            MathTex("A = \\begin{bmatrix} 1 & 2 \\\ 2 & 1 \\end{bmatrix}")
+            .to_edge(UL)
+            .add_background_rectangle()
+        )
+
+        unit_square = self.get_unit_square()
+        text = always_redraw(
+            lambda: Tex("Det(A)").set(width=0.7).move_to(unit_square.get_center())
+        )
+
+        vect = self.get_vector([1, -2], color=PURPLE_B)
+
+        rect = Rectangle(
+            height=2,
+            width=1,
+            stroke_color=BLUE_A,
+            fill_color=BLUE_D,
+            fill_opacity=0.6,
+        ).shift(DOWN * 2 + LEFT)
+
+        circle = Circle(
+            radius=1, stroke_color=BLUE_A, fill_color=BLUE_D, fill_opacity=0.6
+        ).shift(DOWN * 2 + RIGHT)
+
+        self.add_transformable_mboject(vect, unit_square, rect, circle)
+        self.add_background_mobject(matrix_tex, text)
+        self.apply_matrix(matrix)
+
+        self.wait()
+
+
+class MovingVectors(Scene):
+    def construct(self):
+        plane = NumberPlane(
+            x_range=[-5, 5, 1], y_range=[-4, 4, 1], x_length=10, y_length=7
+        )
+        plane.add_coordinates()
+        plane.shift(RIGHT * 2)
+
+        vect1 = Line(
+            start=plane.coords_to_point(0, 0),
+            end=plane.coords_to_point(3, 2),
+            stroke_color=YELLOW,
+        ).add_tip()
