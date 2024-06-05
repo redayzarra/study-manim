@@ -1,3 +1,6 @@
 You can run Manim by:
 
 ~ python -m manim [script.py] [Class name]
+
+Low quality:
+~ python -pql manim [script.py] [Class name]

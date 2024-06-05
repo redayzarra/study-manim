@@ -616,15 +616,41 @@ class SurfaceAnimation(ThreeDScene):
 
         graph = axes.plot(lambda x: x**2, x_range=[-2, 2], color=YELLOW)
         surface = Surface(
-            lambda u, v: axes.c2p(v * np.cos(u), v * np.sin(u), 0.5 * v ** 2),
-            u_range=[0, 2*PI],
+            lambda u, v: axes.c2p(v * np.cos(u), v * np.sin(u), 0.5 * v**2),
+            u_range=[0, 2 * PI],
             v_range=[0, 3],
             checkerboard_colors=[GREEN, RED],
         )
 
         three_d_stuff = VGroup(axes, graph, surface)
-        
+
         self.add(axes, graph)
-        self.begin_ambient_camera_rotation(rate = PI / 20)
+        self.begin_ambient_camera_rotation(rate=PI / 20)
         self.play(Create(surface))
         self.play(three_d_stuff.animate.shift(LEFT * 5))
+
+
+class Updating3DAnimation(ThreeDScene):
+    def construct(self):
+        self.set_camera_orientation(phi=45 * DEGREES, theta=-45 * DEGREES)
+
+        axes = ThreeDAxes(y_range=[-3, 10, 3], y_length=7).add_coordinates()
+
+        graph = axes.plot(lambda x: x, x_range=[0, 3], color=RED_B)
+        area = axes.get_area(graph=graph, x_range=[0, 3])
+
+        val = ValueTracker(0)
+
+        surface = always_redraw(
+            lambda: Surface(
+                lambda u, v: axes.c2p(v, v * np.cos(u), v * np.sin(u)),
+                u_range=[0, val.get_value()],
+                v_range=[0, 3],
+                checkerboard_colors=[GREEN, PURPLE],
+            )
+        )
+        
+        self.add(axes, surface)
+        self.begin_ambient_camera_rotation(rate = PI / 15)
+        self.play(LaggedStart(Create(graph), Create(area)), run_time = 2, lag_ratio = 1)
+        self.play(Rotating(area, axis = RIGHT, radians = 2 * PI, about_point))
