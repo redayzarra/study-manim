@@ -47,3 +47,8 @@ I can also create GIF's of different qualities with the flag:
 ```bash
 manim --format gif scene.py [Class name]
 ```
+## Getting last frame
+You can get the last frame of scene with:
+```bash
+manim -s scene.py [Class name]
+```
