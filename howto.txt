@@ -1,6 +1,17 @@
+Create a manim scene by:
+
+~ manimgo
+
+
 You can run Manim by:
 
 ~ python -m manim [script.py] [Class name]
 
+
+Video settings:
+
 Low quality:
 ~ python -pql manim [script.py] [Class name]
+
+High quality:
+~ python -pqk manim [scripty.py] [Class name]
