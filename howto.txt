@@ -1,6 +1,6 @@
 Create a manim scene by:
 
-~ manimgo
+~ gomanim
 
 
 You can run Manim by:
