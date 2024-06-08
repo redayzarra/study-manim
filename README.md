@@ -16,7 +16,7 @@ from manim import *
 
 class ClassName(Scene):
     def construct(self):
-    
+
 ```
 
 ## Running Manim
@@ -42,13 +42,29 @@ For **High Quality** final videos:
 manim -pqk scene.py [Class name]
 ```
 
+To change the aspect ratio and resolution of videos add this:
+
+```python
+from manim import *
+
+# For vertical content
+config.pixel_width = 1080
+config.pixel_height = 1920
+config.frame_width = 9
+config.frame_height = 16
+
+class ClassName(Scene):
+    def construct(self):
+
+```
+
 ## Creating a GIF's
 I can also create GIF's of different qualities with the flag:
 ```bash
-manim --format gif scene.py [Class name]
+manim --format=gif scene.py [Class name]
 ```
 ## Getting last frame
 You can get the last frame of scene with:
 ```bash
-manim -s scene.py [Class name]
+manim -sqk scene.py [Class name]
 ```

@@ -1,5 +1,9 @@
 from manim import *
 
+config.pixel_width = 1080
+config.pixel_height = 1920
+config.frame_width = 9
+config.frame_height = 16
 
 class MovingRedBox(Scene):
     def construct(self):
@@ -35,7 +39,7 @@ class MorphingTriangleGrid(Scene):
 
         # Create a circle with the properties you want
         circle = Circle(
-            stroke_width=6, stroke_color=YELLOW, fill_color=RED_C, fill_opacity=0.8
+            stroke_width=6, stroke_color=GREEN, fill_color=BLUE_D, fill_opacity=0.8
         )
         # Place the circle
         circle.set_width(8).to_edge(DR)
