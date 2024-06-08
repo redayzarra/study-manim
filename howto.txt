@@ -5,13 +5,22 @@ Create a manim scene by:
 
 You can run Manim by:
 
+~ manim [script.py] [Class name]
+
+or with
+
 ~ python -m manim [script.py] [Class name]
 
 
 Video settings:
 
 Low quality:
-~ python -pql manim [script.py] [Class name]
+~ manim -pql [script.py] [Class name]
 
 High quality:
-~ python -pqk manim [scripty.py] [Class name]
+~ manim -pqk [scripty.py] [Class name]
+
+
+Create gif:
+
+~ manim --format gif [scene.py] [Class name]
