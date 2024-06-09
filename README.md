@@ -7,15 +7,31 @@ This guide will help you get started with creating animations using Manim. Below
 My custom user snippet for starting a new `scene.py` is:
 
 ```python
-goman
+gomanim or manim
 ```
 
 Which effectively types:
 ```python
 from manim import *
+from components.watermark import create_watermark
 
-class ClassName(Scene):
+class Classname(Scene):
     def construct(self):
+        self.construction()
+        self.animate_scene()
+
+    def construction(self):
+        """
+        Define and position the elements of the scene.
+        """
+
+    def animate_scene(self):
+        """
+        Add elements to the scene and animate them.
+        """
+        # Add watermark
+        watermark = create_watermark()
+        self.add(watermark)
 
 ```
 

@@ -1,6 +1,6 @@
 from manim import *
-from SinglyLinkedList import SinglyListNode
-from watermark import create_watermark
+from components.SinglyLinkedList import SinglyListNode
+from components.watermark import create_watermark
 
 class AddingNodeToBeginning(Scene):
     def construct(self):
