@@ -74,6 +74,8 @@ class SentinelNodes(Scene):
         """
         Define and position the elements of the scene.
         """
+        # Adding title for LinkedIn post
+        self.title = Text("Sentinel Nodes").to_edge(UP, buff = 0.5)
         # Adding list nodes for the scene
         self.left = SinglyListNode("Left", "null", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
         self.node1 = SinglyListNode("Head", "0").create()
@@ -104,6 +106,8 @@ class SentinelNodes(Scene):
         # Add watermark
         watermark = create_watermark()
         self.add(watermark)
+        
+        self.add(self.title)
 
         # Add nodes and their elements
         self.add(self.left, self.right, self.arrow)
