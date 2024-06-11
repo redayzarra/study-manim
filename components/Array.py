@@ -4,10 +4,17 @@ from manim import VGroup, Text, RIGHT, DOWN, WHITE
 
 class Array:
     def __init__(
-        self, array_len=None, font_size=24, seed=None, array=None, indexColor=WHITE
+        self,
+        array_len=None,
+        element_size=24,
+        indices_size=24,
+        seed=None,
+        array=None,
+        indexColor=WHITE,
     ):
         self.array_len = array_len or len(array)
-        self.font_size = font_size
+        self.element_size = element_size
+        self.indices_size = indices_size
         self.seed = seed
         self.array = array or self.generate_random_array()
         self.index_color = indexColor
@@ -20,14 +27,14 @@ class Array:
     def create_indices(self):
         return VGroup(
             *[
-                Text(f"{index}", font_size=self.font_size, color=self.index_color)
+                Text(f"{index}", font_size=self.indices_size, color=self.index_color)
                 for index in range(self.array_len)
             ]
         )
 
     def create_array_elements(self):
         return VGroup(
-            *[Text(str(value), font_size=self.font_size) for value in self.array]
+            *[Text(str(value), font_size=self.element_size) for value in self.array]
         )
 
     def construct_array(self):

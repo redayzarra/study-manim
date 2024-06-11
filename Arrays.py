@@ -9,7 +9,6 @@ class ArrayPointers(Scene):
         self.nums = [1, 2, 3, 4, 5, 6]
         self.array_len = len(self.nums)
         self.random_seed = 1
-        self.font_size = 24
 
     def construct(self):
         self.setup_scene()
@@ -19,11 +18,14 @@ class ArrayPointers(Scene):
         """
         Define and position the elements of the scene.
         """
+        # Adding title for LinkedIn post
+        self.title = Text("Two Pointers").to_edge(UP, buff=0.5)
+
         array_viz = Array(
             array=self.nums,
-            font_size=self.font_size,
+            indices_size=30,
             seed=self.random_seed,
-            indexColor=GRAY_B,
+            indexColor=GRAY_C,
         )
 
         self.array, self.array_elements, self.indices = array_viz.construct_array()
@@ -34,6 +36,20 @@ class ArrayPointers(Scene):
 
         self.right = self.create_pointer("Right", ORANGE)
         self.right.next_to(self.array_elements[-1], UP, buff=0.3)
+
+        # Adding educational steps
+        step1 = Text("1. Swap elements at pointers")
+        step2 = Text("2. Move the left and right pointers")
+
+        # Step 2: Group the text objects
+        self.steps = VGroup(step1, step2).arrange(DOWN, buff=0.4)
+
+        # Step 3: Align each text object to the left
+        for step in self.steps:
+            step.align_to(self.steps, LEFT)
+
+        # Optional: Scaling and shifting
+        self.steps.scale(0.5).to_corner(DL)
 
     def create_pointer(self, label, color):
         """
@@ -76,6 +92,8 @@ class ArrayPointers(Scene):
         watermark = create_watermark()
         self.add(watermark)
 
+        self.add(self.title)
+
         # Add array and pointers to the scene
         self.play(
             *[
@@ -92,9 +110,26 @@ class ArrayPointers(Scene):
         left_index = 0
         right_index = self.array_len - 1
 
+        # Initial positions for left and right pointers
+        left_index = 0
+        right_index = self.array_len - 1
+
         # Animate the reversal process
+        played1 = played2 = False
         while left_index < right_index:
+            if not played1:
+                self.play(
+                    Write(self.steps[0]),
+                )
+                played1 = True
+
             self.swap_elements(left_index, right_index)
+
+            if not played2:
+                self.wait()
+                self.play(Write(self.steps[1]))
+                played2 = True
+                
             self.play(
                 self.left.animate.next_to(
                     self.array_elements[left_index + 1], UP, buff=0.3
@@ -103,6 +138,7 @@ class ArrayPointers(Scene):
                     self.array_elements[right_index - 1], UP, buff=0.3
                 ),
             )
+
             left_index += 1
             right_index -= 1
 
