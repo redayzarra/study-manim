@@ -11,7 +11,7 @@ class Array:
         element_size (int): Font size for array elements.
         indices_size (int): Font size for indices.
         line_spacing (float): Spacing between array elements.
-        index_spacing (float): Spacing between indices and elements.
+        element_spacing (float): Spacing between indices and elements.
         seed (Optional[int]): Seed for random number generation.
         array (Optional[List[int]]): Custom array elements.
         index_color (str): Color for the indices text.
@@ -23,8 +23,8 @@ class Array:
         element_size: int = 60,
         indices_size: int = 48,
         line_spacing: float = 0.5,
-        index_spacing: float = 0.85,
-        seed: Optional[int] = None,
+        element_spacing: float = 0.85,
+        seed: Optional[int] = 5,
         array: Optional[List[int]] = None,
         index_color: str = GRAY_C,
     ):
@@ -36,7 +36,7 @@ class Array:
             element_size (int): Font size for array elements.
             indices_size (int): Font size for indices.
             line_spacing (float, optional): Spacing between array elements. Defaults to 0.5.
-            index_spacing (float, optional): Spacing between indices and elements. Defaults to 0.85.
+            element_spacing (float, optional): Spacing between indices and elements. Defaults to 0.85.
             seed (Optional[int]): Seed for random number generation.
             array (Optional[List[int]]): Custom array elements.
             index_color (str): Color for the indices text.
@@ -45,7 +45,7 @@ class Array:
         self.element_size = element_size
         self.indices_size = indices_size
         self.line_spacing = line_spacing
-        self.index_spacing = index_spacing
+        self.element_spacing = element_spacing
         self.seed = seed
         self.array = array or self.generate_random_array()
         self.index_color = index_color
@@ -57,8 +57,7 @@ class Array:
         Returns:
             List[int]: Randomly generated array.
         """
-        if self.seed is not None:
-            random.seed(self.seed)
+        random.seed(self.seed)
         return [random.randint(0, 10) for _ in range(self.array_len)]
 
     def create_indices(self) -> VGroup:
@@ -91,11 +90,11 @@ class Array:
         Constructs the visual representation of the array.
 
         Returns:
-            Tuple[VGroup, VGroup, VGroup]: A tuple containing the array group,
-                                           array elements, and indices.
+            Tuple[open + element + close, indices]: A tuple containing the array elements 
+                                                    & brackets, and indices.
         """
         array_elements = self.create_array_elements()
-        array_elements.arrange(RIGHT, buff=self.index_spacing)
+        array_elements.arrange(RIGHT, buff=self.element_spacing)
 
         indices = self.create_indices()
         for index, element in zip(indices, array_elements):
@@ -103,9 +102,9 @@ class Array:
 
         open_bracket = Text("[")
         close_bracket = Text("]")
-        array_group = VGroup(open_bracket, array_elements, close_bracket).arrange(
+        array = VGroup(open_bracket, array_elements, close_bracket).arrange(
             RIGHT, buff=0.2
         )
 
-        return array_group, array_elements, indices
+        return array, indices
 

@@ -1,4 +1,5 @@
 from manim import *
+from components.Steps import Steps
 from components.watermark import create_watermark
 from components.Array import Array
 
@@ -158,7 +159,7 @@ class ArrayPointers(Scene):
 
 class Stacks(Scene):
     def construct(self):
-        self.showTitle = False
+        self.showTitle = True
         self.construction()
         self.animate_scene()
 
@@ -168,16 +169,16 @@ class Stacks(Scene):
         """
         # Adding title for LinkedIn post
         self.title = Text("Stacks").to_edge(UP, buff=0.5)
-        
+
+        # Adding educational steps
+        steps = Steps(["Stack", "Stack", "Stack"], scale=1)
+        self.steps = steps.create_steps()
+
         self.nums = [0, 1, 2, 3, 4, 5]
 
-        array_viz = Array(
-            array=self.nums,
-            index_color=GRAY_C,
-        )
-        
-        self.array, self.array_elements, self.indices = array_viz.construct_array()
-
+        # Create array
+        arrayConfig = Array(array_len=5)
+        self.array, self.indices = arrayConfig.construct_array()
 
     def animate_scene(self):
         """
@@ -186,10 +187,13 @@ class Stacks(Scene):
         # Add watermark
         watermark = create_watermark()
         self.add(watermark)
+        
+        self.add(self.steps)
 
         # Conditionally add title
         if self.showTitle:
             self.add(self.title)
-            
+
         self.add(self.array)
-        self.add(self.indices)
+        # self.add(self.indices)
+
