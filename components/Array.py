@@ -1,6 +1,6 @@
 import random
 from typing import List, Optional, Tuple
-from manim import VGroup, Text, RIGHT, DOWN, WHITE
+from manim import VGroup, Text, MathTex, RIGHT, DOWN, GRAY_C
 
 class Array:
     """
@@ -10,6 +10,8 @@ class Array:
         array_len (int): Length of the array.
         element_size (int): Font size for array elements.
         indices_size (int): Font size for indices.
+        line_spacing (float): Spacing between array elements.
+        index_spacing (float): Spacing between indices and elements.
         seed (Optional[int]): Seed for random number generation.
         array (Optional[List[int]]): Custom array elements.
         index_color (str): Color for the indices text.
@@ -18,11 +20,13 @@ class Array:
     def __init__(
         self,
         array_len: Optional[int] = None,
-        element_size: int = 24,
-        indices_size: int = 24,
+        element_size: int = 60,
+        indices_size: int = 48,
+        line_spacing: float = 0.5,
+        index_spacing: float = 0.85,
         seed: Optional[int] = None,
         array: Optional[List[int]] = None,
-        index_color: str = WHITE,
+        index_color: str = GRAY_C,
     ):
         """
         Initializes the Array object with optional parameters.
@@ -31,6 +35,8 @@ class Array:
             array_len (Optional[int]): Length of the array.
             element_size (int): Font size for array elements.
             indices_size (int): Font size for indices.
+            line_spacing (float, optional): Spacing between array elements. Defaults to 0.5.
+            index_spacing (float, optional): Spacing between indices and elements. Defaults to 0.85.
             seed (Optional[int]): Seed for random number generation.
             array (Optional[List[int]]): Custom array elements.
             index_color (str): Color for the indices text.
@@ -38,6 +44,8 @@ class Array:
         self.array_len = array_len or (len(array) if array else 0)
         self.element_size = element_size
         self.indices_size = indices_size
+        self.line_spacing = line_spacing
+        self.index_spacing = index_spacing
         self.seed = seed
         self.array = array or self.generate_random_array()
         self.index_color = index_color
@@ -62,7 +70,7 @@ class Array:
         """
         return VGroup(
             *[
-                Text(f"{index}", font_size=self.indices_size, color=self.index_color)
+                MathTex(f"{index}", font_size=self.indices_size, color=self.index_color)
                 for index in range(self.array_len)
             ]
         )
@@ -75,7 +83,7 @@ class Array:
             VGroup: A Manim VGroup containing the array elements text objects.
         """
         return VGroup(
-            *[Text(str(value), font_size=self.element_size) for value in self.array]
+            *[MathTex(str(value), font_size=self.element_size) for value in self.array]
         )
 
     def construct_array(self) -> Tuple[VGroup, VGroup, VGroup]:
@@ -83,19 +91,18 @@ class Array:
         Constructs the visual representation of the array.
 
         Returns:
-            Tuple[VGroup, VGroup, VGroup]: A tuple containing the array group, 
+            Tuple[VGroup, VGroup, VGroup]: A tuple containing the array group,
                                            array elements, and indices.
         """
-        indices = self.create_indices()
         array_elements = self.create_array_elements()
-        array_elements.arrange(RIGHT, buff=0.8).scale(2)
+        array_elements.arrange(RIGHT, buff=self.index_spacing)
 
+        indices = self.create_indices()
         for index, element in zip(indices, array_elements):
-            index.scale(0.9)
-            index.next_to(element, DOWN, buff=0.6)
+            index.next_to(element, DOWN, buff=self.line_spacing)
 
-        open_bracket = Text("[").scale(2)
-        close_bracket = Text("]").scale(2)
+        open_bracket = Text("[")
+        close_bracket = Text("]")
         array_group = VGroup(open_bracket, array_elements, close_bracket).arrange(
             RIGHT, buff=0.2
         )

@@ -10,7 +10,9 @@ class ListNode:
         radius (float): The radius of the node circle.
         color (str): The color of the node circle.
         label_color (str): The color of the label text.
+        label_font_size (int): The font size of the label text.
         value_color (str): The color of the value text.
+        value_font_size (int): The font size of the value text.
     """
 
     def __init__(
@@ -20,7 +22,9 @@ class ListNode:
         radius: float = 1.25,
         color: str = WHITE,
         label_color: str = WHITE,
+        label_font_size: int = 35,
         value_color: str = WHITE,
+        value_font_size: int = 60,
     ):
         """
         Initializes the ListNode object with specified parameters.
@@ -31,11 +35,13 @@ class ListNode:
             radius (float, optional): The radius of the node circle. Defaults to 1.25.
             color (str, optional): The color of the node circle. Defaults to WHITE.
             label_color (str, optional): The color of the label text. Defaults to WHITE.
+            label_font_size (int, optional): The font size of the label text. Defaults to 35.
             value_color (str, optional): The color of the value text. Defaults to WHITE.
+            value_font_size (int, optional): The font size of the value text. Defaults to 60.
         """
         self.node = Circle(color=color, radius=radius)
-        self.node_label = Text(label, color=label_color).scale(0.75)
-        self.node_value = MathTex(value, color=value_color).scale(1.5)
+        self.node_label = Text(label, color=label_color, font_size=label_font_size)
+        self.node_value = MathTex(value, color=value_color, font_size=value_font_size)
 
         self.node_label.next_to(self.node, UP)
         self.node_value.move_to(self.node.get_center())

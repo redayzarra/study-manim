@@ -1,5 +1,5 @@
 from manim import *
-from components.ListNode import SinglyListNode
+from components.ListNode import ListNode
 from components.watermark import create_watermark
 
 class AddingNodeToBeginning(Scene):
@@ -12,9 +12,9 @@ class AddingNodeToBeginning(Scene):
         Define and position the elements of the scene.
         """
         # Adding list nodes for the scene
-        self.head = SinglyListNode("Head", "0", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
-        self.node1 = SinglyListNode("Node A", "1").create()
-        self.node2 = SinglyListNode("Node B", "2").create().shift(RIGHT * 4)
+        self.head = ListNode("Head", "0", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
+        self.node1 = ListNode("Node A", "1").create()
+        self.node2 = ListNode("Node B", "2").create().shift(RIGHT * 4)
 
         # Adding arrows to connect list nodes
         self.arrow = Arrow(start=self.head[0].get_right(), end=self.node2[0].get_left(), color=GREEN_D)
@@ -77,9 +77,9 @@ class SentinelNodes(Scene):
         # Adding title for LinkedIn post
         self.title = Text("Sentinel Nodes").to_edge(UP, buff = 0.5)
         # Adding list nodes for the scene
-        self.left = SinglyListNode("Left", "null", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
-        self.node1 = SinglyListNode("Head", "0").create()
-        self.right = SinglyListNode("Right", "null", color=GREEN_D, value_color=GREEN_A).create().shift(RIGHT * 4)
+        self.left = ListNode("Left", "null", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
+        self.node1 = ListNode("Head", "0").create()
+        self.right = ListNode("Right", "null", color=GREEN_D, value_color=GREEN_A).create().shift(RIGHT * 4)
 
         # Adding arrows to connect list nodes
         self.arrow = Arrow(start=self.left[0].get_right(), end=self.right[0].get_left(), color=GREEN_D)

@@ -169,15 +169,15 @@ class Stacks(Scene):
         # Adding title for LinkedIn post
         self.title = Text("Stacks").to_edge(UP, buff=0.5)
         
-        self.nums = [1, 2, 3, 4]
+        self.nums = [0, 1, 2, 3, 4, 5]
 
         array_viz = Array(
             array=self.nums,
-            indices_size=30,
-            seed=self.random_seed,
-            indexColor=GRAY_C,
+            index_color=GRAY_C,
         )
         
+        self.array, self.array_elements, self.indices = array_viz.construct_array()
+
 
     def animate_scene(self):
         """
@@ -190,3 +190,6 @@ class Stacks(Scene):
         # Conditionally add title
         if self.showTitle:
             self.add(self.title)
+            
+        self.add(self.array)
+        self.add(self.indices)
