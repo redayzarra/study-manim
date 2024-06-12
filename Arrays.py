@@ -171,7 +171,7 @@ class Stacks(Scene):
         self.title = Text("Stacks").to_edge(UP, buff=0.5)
 
         # Adding educational steps
-        steps = Steps(["Stack", "Stack", "Stack"], scale=1)
+        steps = Steps(["Push element to stack", "Pop from the stack", "Stack"])
         self.steps = steps.create_steps()
 
         self.nums = [0, 1, 2, 3, 4, 5]

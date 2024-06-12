@@ -1,4 +1,4 @@
-from manim import VGroup, Text, MathTex, DOWN, RIGHT, LEFT, DL
+from manim import VGroup, Text, MathTex, UP, DOWN, RIGHT, LEFT, DL
 from typing import List
 
 class Steps:
@@ -9,7 +9,7 @@ class Steps:
         step_texts (List[str]): Array of strings representing the steps.
         font_size (int): Font size for the steps.
         step_size (int): Font size for the step numbers.
-        buff (float): Buffer between the steps.
+        line_spacing (float): Buffer between the steps.
         scale (float): Scale factor for the steps.
     """
 
@@ -17,9 +17,8 @@ class Steps:
         self,
         step_texts: List[str],
         font_size: int = 24,
-        step_size: int = 30,
-        buff: float = 0.4,
-        scale: float = 0.5,
+        step_size: int = 34,
+        line_spacing: float = 0.4,
     ):
         """
         Initializes the Steps object with specified parameters.
@@ -28,14 +27,12 @@ class Steps:
             step_texts (List[str]): Array of strings representing the steps.
             font_size (int, optional): Font size for the steps. Defaults to 24.
             step_size (int, optional): Font size for the step numbers. Defaults to 30.
-            buff (float, optional): Buffer between the steps. Defaults to 0.4.
-            scale (float, optional): Scale factor for the steps. Defaults to 0.5.
+            line_spacing (float, optional): Buffer between the steps. Defaults to 0.4.
         """
         self.step_texts = step_texts
         self.font_size = font_size
         self.step_size = step_size
-        self.buff = buff
-        self.scale = scale
+        self.line_spacing = line_spacing
         self.steps = self.create_steps()
 
     def create_steps(self) -> VGroup:
@@ -52,11 +49,7 @@ class Steps:
             step_group = VGroup(step_number, step_text).arrange(RIGHT, buff=0.2)
             steps.add(step_group)
         
-        steps.arrange(DOWN, buff=self.buff)
-
-        for step in steps:
-            step.align_to(steps, LEFT)
-
+        steps.arrange(DOWN, center=False, aligned_edge=LEFT, buff=self.line_spacing)
         steps.to_corner(DL)
         
         return steps
