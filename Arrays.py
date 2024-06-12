@@ -11,6 +11,7 @@ class ArrayPointers(Scene):
         self.random_seed = 1
 
     def construct(self):
+        self.showTitle = False
         self.setup_scene()
         self.animate_scene()
 
@@ -25,7 +26,7 @@ class ArrayPointers(Scene):
             array=self.nums,
             indices_size=30,
             seed=self.random_seed,
-            indexColor=GRAY_C,
+            index_color=GRAY_C,
         )
 
         self.array, self.array_elements, self.indices = array_viz.construct_array()
@@ -74,10 +75,18 @@ class ArrayPointers(Scene):
         arc_left_to_right = ArcBetweenPoints(left_center, right_center, angle=TAU / 4)
         arc_right_to_left = ArcBetweenPoints(right_center, left_center, angle=-TAU / 4)
 
-        self.play(
-            MoveAlongPath(left_element, arc_left_to_right),
-            MoveAlongPath(right_element, arc_right_to_left),
-        )
+        if not self.played1:
+            self.play(
+                Write(self.steps[0]),
+                MoveAlongPath(left_element, arc_left_to_right),
+                MoveAlongPath(right_element, arc_right_to_left),
+            )
+            self.played1 = True
+        else:
+            self.play(
+                MoveAlongPath(left_element, arc_left_to_right),
+                MoveAlongPath(right_element, arc_right_to_left),
+            )
 
         self.array_elements[left_index], self.array_elements[right_index] = (
             right_element,
@@ -92,7 +101,8 @@ class ArrayPointers(Scene):
         watermark = create_watermark()
         self.add(watermark)
 
-        self.add(self.title)
+        if self.showTitle:
+            self.add(self.title)
 
         # Add array and pointers to the scene
         self.play(
@@ -104,7 +114,6 @@ class ArrayPointers(Scene):
             Write(self.array[-1])
         )
         self.play(Write(self.left), Write(self.right))
-        self.wait()
 
         # Initial positions for left and right pointers
         left_index = 0
@@ -115,31 +124,69 @@ class ArrayPointers(Scene):
         right_index = self.array_len - 1
 
         # Animate the reversal process
-        played1 = played2 = False
+        self.played1 = False
+        played2 = False
         while left_index < right_index:
-            if not played1:
-                self.play(
-                    Write(self.steps[0]),
-                )
-                played1 = True
-
             self.swap_elements(left_index, right_index)
 
             if not played2:
-                self.wait()
-                self.play(Write(self.steps[1]))
+                self.play(
+                    Write(self.steps[1]),
+                    self.left.animate.next_to(
+                        self.array_elements[left_index + 1], UP, buff=0.3
+                    ),
+                    self.right.animate.next_to(
+                        self.array_elements[right_index - 1], UP, buff=0.3
+                    ),
+                )
                 played2 = True
-                
-            self.play(
-                self.left.animate.next_to(
-                    self.array_elements[left_index + 1], UP, buff=0.3
-                ),
-                self.right.animate.next_to(
-                    self.array_elements[right_index - 1], UP, buff=0.3
-                ),
-            )
+            else:
+                self.play(
+                    self.left.animate.next_to(
+                        self.array_elements[left_index + 1], UP, buff=0.3
+                    ),
+                    self.right.animate.next_to(
+                        self.array_elements[right_index - 1], UP, buff=0.3
+                    ),
+                )
 
             left_index += 1
             right_index -= 1
 
         self.wait()
+
+
+class Stacks(Scene):
+    def construct(self):
+        self.showTitle = False
+        self.construction()
+        self.animate_scene()
+
+    def construction(self):
+        """
+        Define and position the elements of the scene.
+        """
+        # Adding title for LinkedIn post
+        self.title = Text("Stacks").to_edge(UP, buff=0.5)
+        
+        self.nums = [1, 2, 3, 4]
+
+        array_viz = Array(
+            array=self.nums,
+            indices_size=30,
+            seed=self.random_seed,
+            indexColor=GRAY_C,
+        )
+        
+
+    def animate_scene(self):
+        """
+        Add elements to the scene and animate them.
+        """
+        # Add watermark
+        watermark = create_watermark()
+        self.add(watermark)
+
+        # Conditionally add title
+        if self.showTitle:
+            self.add(self.title)

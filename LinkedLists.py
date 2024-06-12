@@ -1,5 +1,5 @@
 from manim import *
-from components.SinglyLinkedList import SinglyListNode
+from components.ListNode import SinglyListNode
 from components.watermark import create_watermark
 
 class AddingNodeToBeginning(Scene):
