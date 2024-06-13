@@ -1,16 +1,42 @@
-from manim import VGroup, Text, MathTex, UP, DOWN, RIGHT, LEFT, DL
+from manim import VGroup, Text, MathTex, DOWN, RIGHT, LEFT, DL
 from typing import List
 
 class Steps:
     """
     A class to create and display steps in Manim.
 
-    Attributes:
-        step_texts (List[str]): Array of strings representing the steps.
-        font_size (int): Font size for the steps.
-        step_size (int): Font size for the step numbers.
-        line_spacing (float): Buffer between the steps.
-        scale (float): Scale factor for the steps.
+    Attributes
+    ----------
+    step_texts : List[str]
+        Array of strings representing the steps.
+    font_size : int
+        Font size for the steps.
+    step_size : int
+        Font size for the step numbers.
+    line_spacing : float
+        Buffer between the steps.
+
+    Methods
+    -------
+    create() -> VGroup
+        Creates a VGroup of steps from the array of strings.
+
+    Examples
+    --------
+    Basic usage:
+
+    >>> steps = Steps(step_texts=["Step 1", "Step 2", "Step 3"])
+    >>> steps.create()
+
+    Custom font size and line spacing:
+
+    >>> steps = Steps(
+    ...     step_texts=["Step 1", "Step 2", "Step 3"],
+    ...     font_size=28,
+    ...     step_size=38,
+    ...     line_spacing=0.5
+    ... )
+    >>> steps.create()
     """
 
     def __init__(
@@ -23,24 +49,31 @@ class Steps:
         """
         Initializes the Steps object with specified parameters.
 
-        Args:
-            step_texts (List[str]): Array of strings representing the steps.
-            font_size (int, optional): Font size for the steps. Defaults to 24.
-            step_size (int, optional): Font size for the step numbers. Defaults to 30.
-            line_spacing (float, optional): Buffer between the steps. Defaults to 0.4.
+        Parameters
+        ----------
+        step_texts : List[str]
+            Array of strings representing the steps.
+        font_size : int, optional
+            Font size for the steps. Defaults to 24.
+        step_size : int, optional
+            Font size for the step numbers. Defaults to 34.
+        line_spacing : float, optional
+            Buffer between the steps. Defaults to 0.4.
         """
         self.step_texts = step_texts
         self.font_size = font_size
         self.step_size = step_size
         self.line_spacing = line_spacing
-        self.steps = self.create_steps()
+        self.steps = self.create()
 
-    def create_steps(self) -> VGroup:
+    def create(self) -> VGroup:
         """
         Creates a VGroup of steps from the array of strings.
 
-        Returns:
-            VGroup: A Manim VGroup containing the steps.
+        Returns
+        -------
+        VGroup
+            A Manim VGroup containing the steps.
         """
         steps = VGroup()
         for i, step in enumerate(self.step_texts):

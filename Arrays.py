@@ -171,14 +171,25 @@ class Stacks(Scene):
         self.title = Text("Stacks").to_edge(UP, buff=0.5)
 
         # Adding educational steps
-        steps = Steps(["Push element to stack", "Pop from the stack", "Stack"])
-        self.steps = steps.create_steps()
-
-        self.nums = [0, 1, 2, 3, 4, 5]
+        self.steps = Steps(["Push element to stack", "Pop from the stack", "Peek at the top element"]).create()
 
         # Create array
-        arrayConfig = Array(array_len=5)
-        self.array, self.indices = arrayConfig.construct_array()
+        arrayThings = Array(array_len=4).create()
+
+        # Position everything
+        arrayThings.scale(1.5)
+        self.array, self.indices = arrayThings
+
+        # Position starting array
+        self.array.shift(LEFT * 0.82)
+
+        # Number to add
+        self.number = MathTex("8", font_size = 60).scale(1.5).next_to(self.array, RIGHT * 4)
+        self.arrow = ArcBetweenPoints(
+            start=self.number.get_bottom() + (DL * 0.2),
+            end=self.array[1][-1].get_bottom() + (DR * 0.2) + (RIGHT * 0.2),
+            radius=-1.25,
+        ).add_tip(tip_width=0.25)
 
     def animate_scene(self):
         """
@@ -187,13 +198,31 @@ class Stacks(Scene):
         # Add watermark
         watermark = create_watermark()
         self.add(watermark)
-        
-        self.add(self.steps)
 
         # Conditionally add title
         if self.showTitle:
             self.add(self.title)
 
         self.add(self.array)
-        # self.add(self.indices)
-
+        self.add(self.number)
+        self.play(Create(self.arrow))
+        
+        # Pushing to the stack
+        self.play(
+            Write(self.steps[0]),
+            Uncreate(
+                self.arrow,
+            ),
+            self.number.animate.next_to(self.array[1][-1], RIGHT, buff=1),
+            self.array[-1].animate.shift(RIGHT * 1.2),
+        )
+        
+        self.wait()
+        
+        # Popping from the stack
+        self.play(
+            Write(self.steps[1]),
+            
+        )
+        
+        self.wait()
