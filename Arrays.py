@@ -159,7 +159,7 @@ class ArrayPointers(Scene):
 
 class Stacks(Scene):
     def construct(self):
-        self.showTitle = True
+        self.showTitle = False
         self.array_color = GRAY_C
         self.construction()
         self.animate_scene()
@@ -251,7 +251,7 @@ class Stacks(Scene):
         self.play(
             Write(self.steps[2]),
             # Animate the first elemtent and change it's color and font weight
-            self.array[1][0].animate.set_color(GREEN_B).scale(1.25),
+            self.array[1][0].animate.set_color(GREEN_A).scale(1.25),
             run_time=1,
         )
         self.wait(1)
