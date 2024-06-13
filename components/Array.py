@@ -1,6 +1,6 @@
 import random
 from typing import List, Optional
-from manim import VGroup, Text, MathTex, RIGHT, DOWN, GRAY_C
+from manim import VGroup, Text, MathTex, RIGHT, DOWN, WHITE, GRAY_C
 
 class Array:
     """
@@ -22,6 +22,8 @@ class Array:
         Seed for random number generation.
     array : Optional[List[int]]
         Custom array elements.
+    element_color : str
+        Color for the elements text.
     index_color : str
         Color for the indices text.
 
@@ -59,6 +61,7 @@ class Array:
         element_spacing: float = 0.85,
         seed: Optional[int] = 5,
         array: Optional[List[int]] = None,
+        element_color: str = WHITE,
         index_color: str = GRAY_C,
     ):
         """
@@ -66,21 +69,23 @@ class Array:
 
         Parameters
         ----------
-        array_len : Optional[int]
+        `array_len` : Optional[int]
             Length of the array. If None, it will be determined by the length of `array`.
-        element_size : int
+        `element_size` : int
             Font size for array elements. Defaults to 60.
-        indices_size : int
+        `indices_size` : int
             Font size for indices. Defaults to 48.
-        line_spacing : float, optional
+        `line_spacing` : float, optional
             Spacing between array elements. Defaults to 0.5.
-        element_spacing : float, optional
+        `element_spacing` : float, optional
             Spacing between indices and elements. Defaults to 0.85.
-        seed : Optional[int], optional
+        `seed` : Optional[int], optional
             Seed for random number generation. Defaults to 5.
-        array : Optional[List[int]], optional
+        `array` : Optional[List[int]], optional
             Custom array elements. If None, a random array will be generated.
-        index_color : str
+        `element_color` : str
+            Color for the elements text. Defaults to WHITE.
+        `index_color` : str
             Color for the indices text. Defaults to GRAY_C.
         """
         self.array_len = array_len or (len(array) if array else 0)
@@ -90,6 +95,7 @@ class Array:
         self.element_spacing = element_spacing
         self.seed = seed
         self.array = array or self.generate_random_array()
+        self.element_color = element_color
         self.index_color = index_color
 
     def generate_random_array(self) -> List[int]:
@@ -130,7 +136,7 @@ class Array:
             A Manim VGroup containing the array elements text objects.
         """
         return VGroup(
-            *[MathTex(str(value), font_size=self.element_size) for value in self.array]
+            *[MathTex(str(value), font_size=self.element_size, color=self.element_color) for value in self.array]
         )
 
     def create(self) -> VGroup:

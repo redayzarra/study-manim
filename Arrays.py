@@ -160,6 +160,7 @@ class ArrayPointers(Scene):
 class Stacks(Scene):
     def construct(self):
         self.showTitle = True
+        self.array_color = GRAY_C
         self.construction()
         self.animate_scene()
 
@@ -171,10 +172,12 @@ class Stacks(Scene):
         self.title = Text("Stacks").to_edge(UP, buff=0.5)
 
         # Adding educational steps
-        self.steps = Steps(["Push element to stack", "Pop from the stack", "Peek at the top element"]).create()
+        self.steps = Steps(
+            ["Push element to stack", "Pop from the stack", "Peek at the top element"]
+        ).create()
 
         # Create array
-        arrayThings = Array(array_len=4).create()
+        arrayThings = Array(array_len=4, element_color=self.array_color).create()
 
         # Position everything
         arrayThings.scale(1.5)
@@ -184,10 +187,14 @@ class Stacks(Scene):
         self.array.shift(LEFT * 0.82)
 
         # Number to add
-        self.number = MathTex("8", font_size = 60).scale(1.5).next_to(self.array, RIGHT * 4)
+        self.number = (
+            MathTex("8", font_size=60).scale(1.5).next_to(self.array, RIGHT * 6)
+        )
+
+        # Create arrow going inwards
         self.arrow = ArcBetweenPoints(
             start=self.number.get_bottom() + (DL * 0.2),
-            end=self.array[1][-1].get_bottom() + (DR * 0.2) + (RIGHT * 0.2),
+            end=self.number.get_bottom() + (DL * 0.2) + (LEFT * 2),
             radius=-1.25,
         ).add_tip(tip_width=0.25)
 
@@ -205,24 +212,50 @@ class Stacks(Scene):
 
         self.add(self.array)
         self.add(self.number)
-        self.play(Create(self.arrow))
-        
+        self.play(Create(self.arrow), run_time=0.5)
+
         # Pushing to the stack
         self.play(
             Write(self.steps[0]),
-            Uncreate(
+            FadeOut(
                 self.arrow,
             ),
             self.number.animate.next_to(self.array[1][-1], RIGHT, buff=1),
-            self.array[-1].animate.shift(RIGHT * 1.2),
+            self.array[-1].animate.shift(RIGHT * 1.4),
+            run_time=1,
         )
-        
+
         self.wait()
-        
+
+        # Create arrow going outwards
+        self.arrow2 = ArcBetweenPoints(
+            start=self.number.get_bottom() + (DR * 0.2),
+            end=self.number.get_bottom() + (DR * 0.2) + (RIGHT * 2),
+            radius=1.25,
+        ).add_tip(tip_width=0.25)
+
+        self.play(Create(self.arrow2), run_time=0.5)
+
         # Popping from the stack
         self.play(
             Write(self.steps[1]),
-            
+            FadeOut(self.arrow2),
+            self.number.animate.next_to(self.array, RIGHT * 0.4),
+            self.array[-1].animate.shift(LEFT * 1.4),
+            run_time=1,
         )
-        
+
         self.wait()
+
+        # Highlight the top of the stack
+        self.play(
+            Write(self.steps[2]),
+            # Animate the first elemtent and change it's color and font weight
+            self.array[1][0].animate.set_color(GREEN_B).scale(1.25),
+            run_time=1,
+        )
+        self.wait(1)
+        self.play(
+            self.array[1][0].animate.set_color(self.array_color).scale(0.8),
+            FadeOut(self.steps),
+        )

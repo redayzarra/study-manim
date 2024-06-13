@@ -1,3 +1,10 @@
 # This file is used internally by FFMPEG.
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3529212410_402985920_3721423248.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_1704852926_3336644427.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3529212410_626657925_3347905657.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_4276935379_265843117.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_1704852926_2609136191.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_1453458144_868572052.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_1585344151_3109425786.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_1704852926_933699856.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_2610885909_2860609815.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_3890345977_3886695142.mp4'
+file 'file:C:/Users/reday/Documents/study-manim/media/videos/Arrays/1080p60/partial_movie_files/Stacks/3040924799_1319782681_1249013024.mp4'
