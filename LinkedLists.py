@@ -1,6 +1,8 @@
 from manim import *
 from components.ListNode import ListNode
+from components.Steps import Steps
 from components.watermark import create_watermark
+
 
 class AddingNodeToBeginning(Scene):
     def construct(self):
@@ -11,22 +13,33 @@ class AddingNodeToBeginning(Scene):
         """
         Define and position the elements of the scene.
         """
-        # Adding list nodes for the scene
-        self.head = ListNode("Head", "0", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
+        # Adding listNums nodes for the scene
+        self.head = (
+            ListNode("Head", "0", color=GREEN_D, value_color=GREEN_A)
+            .create()
+            .shift(LEFT * 4)
+        )
         self.node1 = ListNode("Node A", "1").create()
         self.node2 = ListNode("Node B", "2").create().shift(RIGHT * 4)
 
-        # Adding arrows to connect list nodes
-        self.arrow = Arrow(start=self.head[0].get_right(), end=self.node2[0].get_left(), color=GREEN_D)
+        # Adding arrows to connect listNums nodes
+        self.arrow = Arrow(
+            start=self.head[0].get_right(), end=self.node2[0].get_left(), color=GREEN_D
+        )
         self.arrow_label = MathTex("next", color=GREEN_A).next_to(self.arrow, UP * 0.5)
 
         # Adding educational steps
         step1 = Text("1. Create new node")
         step2 = Text("2. Update head's next pointer")
         step3 = Text("3. Link new node to next node")
-        
+
         # Positioning steps, need to do this in better way
-        self.steps = VGroup(step1, step2, step3).arrange(DOWN, buff=0.4).scale(0.5).shift(DOWN * 3)
+        self.steps = (
+            VGroup(step1, step2, step3)
+            .arrange(DOWN, buff=0.4)
+            .scale(0.5)
+            .shift(DOWN * 3)
+        )
         self.steps[1].shift(RIGHT * 0.78)
         self.steps[2].shift(RIGHT * 0.8 + UP * 0.08)
         self.steps.to_edge(LEFT)
@@ -55,15 +68,20 @@ class AddingNodeToBeginning(Scene):
         self.wait()
 
         # New arrows for updated connections
-        arrow2 = Arrow(start=self.head[0].get_right(), end=self.node1[0].get_left(), color=GREEN_D)
+        arrow2 = Arrow(
+            start=self.head[0].get_right(), end=self.node1[0].get_left(), color=GREEN_D
+        )
         arrow2_label = MathTex("next", color=GREEN_A).next_to(arrow2, UP * 0.5)
-        arrow3 = Arrow(start=self.node1[0].get_right(), end=self.node2[0].get_left(), color=WHITE)
+        arrow3 = Arrow(
+            start=self.node1[0].get_right(), end=self.node2[0].get_left(), color=WHITE
+        )
         arrow3_label = MathTex("next").next_to(arrow3, UP * 0.5)
 
         # Display new arrows and steps
         self.play(GrowArrow(arrow2), Write(arrow2_label), Write(self.steps[1]))
         self.play(GrowArrow(arrow3), Write(arrow3_label), Write(self.steps[2]))
         self.wait(duration=2)
+
 
 class SentinelNodes(Scene):
     def construct(self):
@@ -75,14 +93,24 @@ class SentinelNodes(Scene):
         Define and position the elements of the scene.
         """
         # Adding title for LinkedIn post
-        self.title = Text("Sentinel Nodes").to_edge(UP, buff = 0.5)
-        # Adding list nodes for the scene
-        self.left = ListNode("Left", "null", color=GREEN_D, value_color=GREEN_A).create().shift(LEFT * 4)
+        self.title = Text("Sentinel Nodes").to_edge(UP, buff=0.5)
+        # Adding listNums nodes for the scene
+        self.left = (
+            ListNode("Left", "null", color=GREEN_D, value_color=GREEN_A)
+            .create()
+            .shift(LEFT * 4)
+        )
         self.node1 = ListNode("Head", "0").create()
-        self.right = ListNode("Right", "null", color=GREEN_D, value_color=GREEN_A).create().shift(RIGHT * 4)
+        self.right = (
+            ListNode("Right", "null", color=GREEN_D, value_color=GREEN_A)
+            .create()
+            .shift(RIGHT * 4)
+        )
 
-        # Adding arrows to connect list nodes
-        self.arrow = Arrow(start=self.left[0].get_right(), end=self.right[0].get_left(), color=GREEN_D)
+        # Adding arrows to connect listNums nodes
+        self.arrow = Arrow(
+            start=self.left[0].get_right(), end=self.right[0].get_left(), color=GREEN_D
+        )
         self.arrow_label = MathTex("next", color=GREEN_A).next_to(self.arrow, UP * 0.5)
 
         # Adding educational steps
@@ -95,7 +123,7 @@ class SentinelNodes(Scene):
         # Step 3: Align each text object to the left
         for step in self.steps:
             step.align_to(self.steps, LEFT)
-        
+
         # Optional: Scaling and shifting
         self.steps.scale(0.5).to_corner(DL)
 
@@ -106,7 +134,7 @@ class SentinelNodes(Scene):
         # Add watermark
         watermark = create_watermark()
         self.add(watermark)
-        
+
         self.add(self.title)
 
         # Add nodes and their elements
@@ -125,12 +153,70 @@ class SentinelNodes(Scene):
         self.wait()
 
         # New arrows for updated connections
-        arrow2 = Arrow(start=self.left[0].get_right(), end=self.node1[0].get_left(), color=GREEN_D)
+        arrow2 = Arrow(
+            start=self.left[0].get_right(), end=self.node1[0].get_left(), color=GREEN_D
+        )
         arrow2_label = MathTex("next", color=GREEN_A).next_to(arrow2, UP * 0.5)
-        arrow3 = Arrow(start=self.node1[0].get_right(), end=self.right[0].get_left(), color=WHITE)
+        arrow3 = Arrow(
+            start=self.node1[0].get_right(), end=self.right[0].get_left(), color=WHITE
+        )
         arrow3_label = MathTex("next").next_to(arrow3, UP * 0.5)
 
         # Display new arrows and steps
         self.play(GrowArrow(arrow2), Write(arrow2_label), Write(self.steps[1]))
         self.play(GrowArrow(arrow3), Write(arrow3_label))
         self.wait(duration=2)
+
+
+class SinglyLinkedList(Scene):
+    def construct(self):
+        self.showTitle = True
+        self.construction()
+        self.animate_scene()
+
+    def construction(self):
+        """
+        Define and position the elements of the scene.
+        """
+        # Adding title for LinkedIn post
+        self.title = Text("Singly Linked List").to_edge(UP, buff=0.5)
+
+        # Creating steps for animation
+        self.steps = Steps(
+            ["Shift the pointer", "Pop from the stack", "Peek at the top element"],
+        ).create()
+
+
+        # Create linked list with ListNodes
+        self.linkedList = VGroup()
+        
+        listNums = [0, 1, 2, 3, 4]
+        radius = 0.75
+        for index, num in enumerate(listNums):
+            if index == 0:
+                listNode = ListNode(str(num), "Head", radius=radius, label_font_size=30).create()
+            else:
+                listNode = ListNode(str(num), radius=radius).create()
+                
+            self.linkedList.add(listNode)
+            
+        # Position linked list
+        self.linkedList.arrange(RIGHT, aligned_edge=DOWN, buff=1).shift(UP * 0.5)
+
+    def animate_scene(self):
+        """
+        Add elements to the scene and animate them.
+        """
+        # Add watermark
+        watermark = create_watermark()
+        self.add(watermark)
+
+        # Conditionally add title
+        if self.showTitle:
+            self.add(self.title)
+            
+        # Adding steps for LinkedIn post
+        self.add(self.steps)
+
+
+        self.add(self.linkedList)

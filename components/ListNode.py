@@ -52,8 +52,8 @@ class ListNode:
 
     def __init__(
         self,
-        label: str,
         value: str,
+        label: str = "",
         radius: float = 1.25,
         color: str = WHITE,
         label_color: str = WHITE,
@@ -100,4 +100,3 @@ class ListNode:
             A Manim VGroup containing the node, label, and value.
         """
         return VGroup(self.node, self.node_label, self.node_value)
-

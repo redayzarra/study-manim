@@ -44,7 +44,7 @@ class Steps:
         step_texts: List[str],
         font_size: int = 24,
         step_size: int = 34,
-        line_spacing: float = 0.4,
+        line_spacing: float = 0.2,
     ):
         """
         Initializes the Steps object with specified parameters.
@@ -58,7 +58,7 @@ class Steps:
         step_size : int, optional
             Font size for the step numbers. Defaults to 34.
         line_spacing : float, optional
-            Buffer between the steps. Defaults to 0.4.
+            Buffer between the steps. Defaults to 0.2.
         """
         self.step_texts = step_texts
         self.font_size = font_size
