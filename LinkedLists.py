@@ -170,7 +170,7 @@ class SentinelNodes(Scene):
 
 class SinglyLinkedList(Scene):
     def construct(self):
-        self.showTitle = True
+        self.show_title = True
         self.construction()
         self.animate_scene()
 
@@ -178,30 +178,48 @@ class SinglyLinkedList(Scene):
         """
         Define and position the elements of the scene.
         """
-        # Adding title for LinkedIn post
+        # Add title
         self.title = Text("Singly Linked List").to_edge(UP, buff=0.5)
 
-        # Creating steps for animation
-        self.steps = Steps(
-            ["Shift the pointer", "Pop from the stack", "Peek at the top element"],
-        ).create()
+        # Adding steps for LinkedIn post
+        steps_text = [
+            "Start pointer at the head",
+            "Move the pointer",
+            "Peek at the top element",
+        ]
+        self.steps = Steps(steps_text).create()
 
+        self.create_linked_list([0, 1, 2, 3, 4])
+        self.create_arrows()
 
-        # Create linked list with ListNodes
-        self.linkedList = VGroup()
-        
-        listNums = [0, 1, 2, 3, 4]
+        self.cur = Text("cur", font_size=30, color=GREEN).next_to(
+            self.linked_list[0], UP
+        )
+
+    def create_linked_list(self, nums: List[int]) -> None:
+        """Creates the linked list nodes and positions them."""
+        self.linked_list = VGroup()
         radius = 0.75
-        for index, num in enumerate(listNums):
-            if index == 0:
-                listNode = ListNode(str(num), "Head", radius=radius, label_font_size=30).create()
-            else:
-                listNode = ListNode(str(num), radius=radius).create()
-                
-            self.linkedList.add(listNode)
-            
-        # Position linked list
-        self.linkedList.arrange(RIGHT, aligned_edge=DOWN, buff=1).shift(UP * 0.5)
+
+        for num in nums:
+            list_node = ListNode(str(num), radius=radius).create()
+            self.linked_list.add(list_node)
+
+        self.linked_list.arrange(RIGHT, aligned_edge=DOWN, buff=1).shift(UP * 0.65)
+
+    def create_arrows(self):
+        """Creates arrows pointing from one list node to the next."""
+        self.arrows = VGroup()
+        for index, node in enumerate(self.linked_list[:-1]):
+            next_node = self.linked_list[index + 1]
+            arrow = ArcBetweenPoints(
+                start=node.get_bottom() + (DR * 0.2),
+                end=next_node.get_bottom() + (DL * 0.2),
+                radius=1.5,
+                color=GRAY_C,
+            ).add_tip(tip_width=0.25)
+            next = Text("next", font_size=25, color=GRAY_A).next_to(arrow, DOWN)
+            self.arrows.add(arrow, next)
 
     def animate_scene(self):
         """
@@ -211,12 +229,25 @@ class SinglyLinkedList(Scene):
         watermark = create_watermark()
         self.add(watermark)
 
-        # Conditionally add title
-        if self.showTitle:
+        # Conditionally render the title
+        if self.show_title:
             self.add(self.title)
-            
-        # Adding steps for LinkedIn post
-        self.add(self.steps)
 
+        self.add(self.linked_list)
 
-        self.add(self.linkedList)
+        # Draw the linked list with pointers
+        self.play(
+            *[
+                Write(elements, run_time=2)
+                for elements in [self.linked_list, self.arrows]
+            ],
+        )
+
+        # Add cur pointer at the head - Step 1
+        self.play(
+            Write(self.cur),
+            Write(self.steps[0]),
+            self.linked_list[0].animate.set_color(GREEN),
+        )
+
+        self.wait(3)
