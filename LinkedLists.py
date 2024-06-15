@@ -321,12 +321,12 @@ class DoublyLinkedList(Scene):
             if not index == len(self.linked_list) - 1:
                 next_node = self.linked_list[index + 1]
                 next_arrow = ArcBetweenPoints(
-                    start=node.get_bottom() + (DR * 0.2),
-                    end=next_node.get_bottom() + (DL * 0.2),
+                    start=node.get_bottom() + (RIGHT * 0.2 - SMALL_BUFF),
+                    end=next_node.get_bottom() + (LEFT * 0.2 - SMALL_BUFF),
                     radius=2,
                     color=GRAY_C,
                 ).add_tip(tip_width=0.25)
-                next_label = Text("next", font_size=25, color=GRAY_A).next_to(
+                next_label = Text("next", font_size=22, color=GRAY_A).next_to(
                     next_arrow, DOWN
                 )
                 next_element = VGroup().add(next_arrow, next_label)
@@ -336,12 +336,12 @@ class DoublyLinkedList(Scene):
             if index > 0:  # Skip the first node since it has no previous node
                 prev_node = self.linked_list[index - 1]
                 prev_arrow = ArcBetweenPoints(
-                    start=node.get_top() + (UL * 0.2),
-                    end=prev_node.get_top() + (UR * 0.2),
+                    start=node.get_top() + (LEFT * 0.2 + SMALL_BUFF),
+                    end=prev_node.get_top() + (RIGHT * 0.2 + SMALL_BUFF),
                     radius=2,  # Negative radius for the upward arc
                     color=GRAY_C,
                 ).add_tip(tip_width=0.25)
-                prev_label = Text("prev", font_size=25, color=GRAY_A).next_to(
+                prev_label = Text("prev", font_size=22, color=GRAY_A).next_to(
                     prev_arrow, UP
                 )
                 prev_element = VGroup().add(prev_arrow, prev_label)
