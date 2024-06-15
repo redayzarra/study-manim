@@ -170,7 +170,7 @@ class SentinelNodes(Scene):
 
 class SinglyLinkedList(Scene):
     def construct(self):
-        self.show_title = True
+        self.show_title = False
         self.construction()
         self.animate_scene()
 
@@ -183,13 +183,12 @@ class SinglyLinkedList(Scene):
 
         # Adding steps for LinkedIn post
         steps_text = [
-            "Start pointer at the head",
-            "Move the pointer",
-            "Peek at the top element",
+            "Initialize `cur` pointer at the head node",
+            "Move `cur` pointer to the next node",
         ]
         self.steps = Steps(steps_text).create()
 
-        self.create_linked_list([0, 1, 2, 3, 4])
+        self.create_linked_list([1, 2, 3, 4, "null"])
         self.create_arrows()
 
         self.cur = Text("cur", font_size=30, color=GREEN).next_to(
@@ -209,7 +208,7 @@ class SinglyLinkedList(Scene):
 
     def create_arrows(self):
         """Creates arrows pointing from one list node to the next."""
-        self.arrows = VGroup()
+        self.next_arrows = VGroup()
         for index, node in enumerate(self.linked_list[:-1]):
             next_node = self.linked_list[index + 1]
             arrow = ArcBetweenPoints(
@@ -219,7 +218,8 @@ class SinglyLinkedList(Scene):
                 color=GRAY_C,
             ).add_tip(tip_width=0.25)
             next = Text("next", font_size=25, color=GRAY_A).next_to(arrow, DOWN)
-            self.arrows.add(arrow, next)
+            element = VGroup().add(arrow, next)
+            self.next_arrows.add(element)
 
     def animate_scene(self):
         """
@@ -239,15 +239,142 @@ class SinglyLinkedList(Scene):
         self.play(
             *[
                 Write(elements, run_time=2)
-                for elements in [self.linked_list, self.arrows]
+                for elements in [self.linked_list, self.next_arrows]
             ],
         )
 
         # Add cur pointer at the head - Step 1
         self.play(
             Write(self.cur),
-            Write(self.steps[0]),
-            self.linked_list[0].animate.set_color(GREEN),
+            Write(self.steps[0], run_time=1.5),
+            ApplyMethod(self.linked_list[0].set_color, GREEN),
+        )
+
+        played = False
+        for i in range(len(self.linked_list) - 1):
+            self.play(Indicate(self.next_arrows[i][1], scale_factor=1.2, color=YELLOW))
+
+            # Flash the "next" label and move cur pointer to the next node
+
+            # Move cur pointer to the next node
+            if not played:
+                self.play(
+                    ApplyMethod(self.cur.next_to, self.linked_list[i + 1], UP),
+                    ApplyMethod(self.linked_list[i].set_color, WHITE),
+                    ApplyMethod(self.linked_list[i + 1].set_color, GREEN),
+                    Write(self.steps[1], run_time=1.5),
+                )
+                played = True
+            else:
+                self.play(
+                    ApplyMethod(self.cur.next_to, self.linked_list[i + 1], UP),
+                    ApplyMethod(self.linked_list[i].set_color, WHITE),
+                    ApplyMethod(self.linked_list[i + 1].set_color, GREEN),
+                )
+
+        self.wait()
+
+
+class DoublyLinkedList(Scene):
+    def construct(self):
+        self.showTitle = True
+        self.construction()
+        self.animate_scene()
+
+    def construction(self):
+        """
+        Define and position the elements of the scene.
+        """
+        # Adding steps for LinkedIn post
+        steps_text = [
+            "Initialize `cur` pointer at the head node",
+            "Move `cur` pointer to the next node",
+        ]
+        self.steps = Steps(steps_text).create()
+
+        self.create_linked_list([1, 2, 3, 4, "null"])
+        self.create_arrows()
+
+        self.cur = Text("cur", font_size=30, color=GREEN).next_to(
+            self.linked_list[0], UP
+        )
+
+    def create_linked_list(self, nums: List[int]) -> None:
+        """Creates the linked list nodes and positions them."""
+        self.linked_list = VGroup()
+        radius = 0.75
+
+        for num in nums:
+            list_node = ListNode(str(num), radius=radius).create()
+            self.linked_list.add(list_node)
+
+        self.linked_list.arrange(RIGHT, aligned_edge=DOWN, buff=1)
+
+    def create_arrows(self):
+        """Creates arrows pointing from one list node to the next and previous."""
+        self.next_arrows = VGroup()
+        self.prev_arrows = VGroup()
+
+        for index, node in enumerate(self.linked_list):
+
+            # Next arrow
+            if not index == len(self.linked_list) - 1:
+                next_node = self.linked_list[index + 1]
+                next_arrow = ArcBetweenPoints(
+                    start=node.get_bottom() + (DR * 0.2),
+                    end=next_node.get_bottom() + (DL * 0.2),
+                    radius=2,
+                    color=GRAY_C,
+                ).add_tip(tip_width=0.25)
+                next_label = Text("next", font_size=25, color=GRAY_A).next_to(
+                    next_arrow, DOWN
+                )
+                next_element = VGroup().add(next_arrow, next_label)
+                self.next_arrows.add(next_element)
+
+            # Prev arrow
+            if index > 0:  # Skip the first node since it has no previous node
+                prev_node = self.linked_list[index - 1]
+                prev_arrow = ArcBetweenPoints(
+                    start=node.get_top() + (UL * 0.2),
+                    end=prev_node.get_top() + (UR * 0.2),
+                    radius=2,  # Negative radius for the upward arc
+                    color=GRAY_C,
+                ).add_tip(tip_width=0.25)
+                prev_label = Text("prev", font_size=25, color=GRAY_A).next_to(
+                    prev_arrow, UP
+                )
+                prev_element = VGroup().add(prev_arrow, prev_label)
+                self.prev_arrows.add(prev_element)
+
+    def animate_scene(self):
+        """
+        Add elements to the scene and animate them.
+        """
+        # Add watermark
+        watermark = create_watermark()
+        self.add(watermark)
+
+        # Conditionally add title
+        title = Text("Doubly Linked List").to_edge(UP, buff=0.5)
+        if self.showTitle:
+            self.add(title)
+
+        self.add(self.linked_list)
+
+        # Draw the linked list with pointers
+        self.play(
+            *[
+                Write(elements, run_time=2)
+                for elements in [self.linked_list, self.next_arrows, self.prev_arrows]
+            ],
+        )
+
+        # Add cur pointer at the head - Step 1
+        self.play(
+            # Write(self.cur),
+            Write(self.steps[0], run_time=1.5),
+            ApplyMethod(self.linked_list[0].set_color, GREEN),
         )
 
         self.wait(3)
