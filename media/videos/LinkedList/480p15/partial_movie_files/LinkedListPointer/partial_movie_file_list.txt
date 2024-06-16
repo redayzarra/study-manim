@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/1185818338_471318271_1241301738.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_1704852926_3412858748.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_2526005365_2110436565.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_1668099181_1886797556.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_1704852926_3431485324.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_744652282_1060900187.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_2991927238_905524850.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/480p15/partial_movie_files/LinkedListPointer/624642324_1141282389_1004594869.mp4'

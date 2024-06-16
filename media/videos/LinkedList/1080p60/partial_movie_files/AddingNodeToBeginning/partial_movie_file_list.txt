@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3529212410_471318271_4237964287.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_1704852926_3530279118.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_2526005365_3337201048.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_4253594567_1886797556.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_1704852926_3642525205.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_744652282_3144336847.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_2991927238_708408504.mp4'
-file 'file:C:/Users/reday/Documents/study-manim/media/videos/LinkedList/1080p60/partial_movie_files/AddingNodeToBeginning/3040924799_1141282389_1783899185.mp4'

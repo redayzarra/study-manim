@@ -204,7 +204,7 @@ class SinglyLinkedList(Scene):
             list_node = ListNode(str(num), radius=radius).create()
             self.linked_list.add(list_node)
 
-        self.linked_list.arrange(RIGHT, aligned_edge=DOWN, buff=1).shift(UP * 0.65)
+        self.linked_list.arrange(RIGHT, aligned_edge=DOWN, buff=1).shift(UP)
 
     def create_arrows(self):
         """Creates arrows pointing from one list node to the next."""
@@ -254,8 +254,6 @@ class SinglyLinkedList(Scene):
         for i in range(len(self.linked_list) - 1):
             self.play(Indicate(self.next_arrows[i][1], scale_factor=1.2, color=YELLOW))
 
-            # Flash the "next" label and move cur pointer to the next node
-
             # Move cur pointer to the next node
             if not played:
                 self.play(
@@ -287,16 +285,17 @@ class DoublyLinkedList(Scene):
         """
         # Adding steps for LinkedIn post
         steps_text = [
-            "Initialize `cur` pointer at the head node",
-            "Move `cur` pointer to the next node",
+            "Start `cur` at the head node",
+            "Move `cur` to the next node",
+            "Move `cur` to the previous node",
         ]
         self.steps = Steps(steps_text).create()
 
         self.create_linked_list([1, 2, 3, 4, "null"])
         self.create_arrows()
 
-        self.cur = Text("cur", font_size=30, color=GREEN).next_to(
-            self.linked_list[0], UP
+        self.cur = Text("cur", font_size=35, color=GREEN).next_to(
+            self.linked_list[0], DOWN * 2.5
         )
 
     def create_linked_list(self, nums: List[int]) -> None:
@@ -327,7 +326,7 @@ class DoublyLinkedList(Scene):
                     color=GRAY_C,
                 ).add_tip(tip_width=0.25)
                 next_label = Text("next", font_size=22, color=GRAY_A).next_to(
-                    next_arrow, DOWN
+                    next_arrow, UP * 0.05
                 )
                 next_element = VGroup().add(next_arrow, next_label)
                 self.next_arrows.add(next_element)
@@ -342,7 +341,7 @@ class DoublyLinkedList(Scene):
                     color=GRAY_C,
                 ).add_tip(tip_width=0.25)
                 prev_label = Text("prev", font_size=22, color=GRAY_A).next_to(
-                    prev_arrow, UP
+                    prev_arrow, DOWN * 0.05 
                 )
                 prev_element = VGroup().add(prev_arrow, prev_label)
                 self.prev_arrows.add(prev_element)
@@ -372,9 +371,65 @@ class DoublyLinkedList(Scene):
 
         # Add cur pointer at the head - Step 1
         self.play(
-            # Write(self.cur),
+            Write(self.cur),
             Write(self.steps[0], run_time=1.5),
             ApplyMethod(self.linked_list[0].set_color, GREEN),
         )
 
-        self.wait(3)
+        played = False
+        for i in range(3):
+            self.play(Indicate(self.next_arrows[i][1], scale_factor=1.2, color=YELLOW))
+
+            # Define the arc path for cur pointer to move
+            path = ArcBetweenPoints(
+                self.cur.get_center(),
+                self.linked_list[i + 1].get_bottom() + DOWN * 0.75,
+                angle=TAU / 6,
+            )
+
+            # Move cur pointer to the next node along the arc path
+            if not played:
+                self.play(
+                    MoveAlongPath(self.cur, path),
+                    ApplyMethod(self.linked_list[i].set_color, WHITE),
+                    ApplyMethod(self.linked_list[i + 1].set_color, GREEN),
+                    Write(self.steps[1], run_time=1.5),
+                )
+                played = True
+            else:
+                self.play(
+                    MoveAlongPath(self.cur, path),
+                    ApplyMethod(self.linked_list[i].set_color, WHITE),
+                    ApplyMethod(self.linked_list[i + 1].set_color, GREEN),
+                )
+
+        # Indicate prev arrows and move back to the beginning
+        played = False
+        for i in range(2, -1, -1):
+            self.play(Indicate(self.prev_arrows[i][1], scale_factor=1.2, color=YELLOW))
+
+            # Define the arc path for cur pointer to move backward
+            path_backward = ArcBetweenPoints(
+                self.cur.get_center(),
+                self.linked_list[i].get_bottom() + DOWN * 0.75,
+                angle=-TAU / 6,
+            )
+
+            # Move cur pointer to the previous node along the arc path
+            if not played:
+                self.play(
+                    MoveAlongPath(self.cur, path_backward),
+                    ApplyMethod(self.linked_list[i + 1].set_color, WHITE),
+                    ApplyMethod(self.linked_list[i].set_color, GREEN),
+                    Write(self.steps[2], run_time = 1.5),
+                )
+                played = True
+            else:
+                self.play(
+                    MoveAlongPath(self.cur, path_backward),
+                    ApplyMethod(self.linked_list[i + 1].set_color, WHITE),
+                    ApplyMethod(self.linked_list[i].set_color, GREEN),
+                )
+
+
+        self.wait()
