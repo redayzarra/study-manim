@@ -1,5 +1,6 @@
 from manim import *
 
+from components.ListNode import ListNode
 from components.watermark import create_watermark
 
 class Algorithms(Scene):
@@ -110,6 +111,11 @@ class BigO(Scene):
         """
         Define and position the elements of the scene.
         """
+        self.node1 = ListNode("1", radius=1).create()
+        self.node2 = ListNode("1", radius=1).create()
+        self.node3 = ListNode("1", radius=1).create()
+        self.node4 = ListNode("1", radius=1).create()
+        self.node5 = ListNode("1", radius=1).create()
         
 
     def animate_scene(self):
@@ -124,3 +130,5 @@ class BigO(Scene):
         title = Text("Big O Notation").to_edge(UP, buff=0.5)
         if self.showTitle:
             self.add(title)
+
+        self.add(self.node1)
