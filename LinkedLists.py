@@ -275,7 +275,7 @@ class SinglyLinkedList(Scene):
 
 class DoublyLinkedList(Scene):
     def construct(self):
-        self.showTitle = True
+        self.showTitle = False
         self.construction()
         self.animate_scene()
 
@@ -377,7 +377,7 @@ class DoublyLinkedList(Scene):
         )
 
         played = False
-        for i in range(3):
+        for i in range(2):
             self.play(Indicate(self.next_arrows[i][1], scale_factor=1.2, color=YELLOW))
 
             # Define the arc path for cur pointer to move
@@ -405,7 +405,7 @@ class DoublyLinkedList(Scene):
 
         # Indicate prev arrows and move back to the beginning
         played = False
-        for i in range(2, -1, -1):
+        for i in range(1, -1, -1):
             self.play(Indicate(self.prev_arrows[i][1], scale_factor=1.2, color=YELLOW))
 
             # Define the arc path for cur pointer to move backward
