@@ -1,5 +1,7 @@
 from manim import *
 
+from components.watermark import create_watermark
+
 class Algorithms(Scene):
     # contributed by heejin_park, https://infograph.tistory.com/230
     def construct(self):
@@ -97,3 +99,28 @@ class Algorithms(Scene):
         self.wait(8.5)
         self.dot.remove_updater(go_back_around_circle)
 
+
+class BigO(Scene):
+    def construct(self):
+        self.showTitle = False
+        self.construction()
+        self.animate_scene()
+
+    def construction(self):
+        """
+        Define and position the elements of the scene.
+        """
+        
+
+    def animate_scene(self):
+        """
+        Add elements to the scene and animate them.
+        """
+        # Add watermark
+        watermark = create_watermark()
+        self.add(watermark)
+
+        # Conditionally add title
+        title = Text("Big O Notation").to_edge(UP, buff=0.5)
+        if self.showTitle:
+            self.add(title)
