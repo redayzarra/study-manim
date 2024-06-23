@@ -94,3 +94,72 @@ class Hashmap:
         self.hashmap = hashmap or []
         self.element_color = element_color
         self.bucket_color = bucket_color
+
+    def create_buckets(self) -> VGroup:
+        """
+        Creates the buckets for the hashmap.
+
+        Returns
+        -------
+        VGroup
+            A Manim VGroup containing the bucket text objects.
+        """
+        return VGroup(
+            *[
+                Text(f"Bucket {index}", font_size=self.key_size, color=self.bucket_color)
+                for index in range(self.num_buckets)
+            ]
+        )
+
+    def create_elements(self) -> List[VGroup]:
+        """
+        Creates the hashmap elements.
+
+        Returns
+        -------
+        List[VGroup]
+            A list of VGroups, each containing the key-value pairs in a bucket.
+        """
+        elements = [[] for _ in range(self.num_buckets)]
+        for key, value in self.hashmap:
+            bucket_index = hash(key) % self.num_buckets
+            elements[bucket_index].append((key, value))
+
+        element_vgroups = []
+        for bucket_elements in elements:
+            vgroup = VGroup(
+                *[
+                    VGroup(
+                        MathTex(str(key), font_size=self.key_size, color=self.element_color),
+                        MathTex(str(value), font_size=self.value_size, color=self.element_color)
+                    ).arrange(RIGHT, buff=self.line_spacing)
+                    for key, value in bucket_elements
+                ]
+            )
+            vgroup.arrange(DOWN, buff=self.line_spacing)
+            element_vgroups.append(vgroup)
+
+        return element_vgroups
+
+    def create(self) -> VGroup:
+        """
+        Constructs the visual representation of the hashmap.
+
+        Returns
+        -------
+        VGroup
+            A VGroup containing the buckets and elements.
+        """
+        buckets = self.create_buckets()
+        elements = self.create_elements()
+
+        for bucket, element_vgroup in zip(buckets, elements):
+            element_vgroup.next_to(bucket, DOWN, buff=self.bucket_spacing)
+
+        hashmap_vgroup = VGroup()
+        for bucket, element_vgroup in zip(buckets, elements):
+            hashmap_vgroup.add(bucket, element_vgroup)
+
+        hashmap_vgroup.arrange(RIGHT, buff=self.bucket_spacing)
+
+        return hashmap_vgroup
