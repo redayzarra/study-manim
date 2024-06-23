@@ -79,7 +79,8 @@ class Steps:
         for i, step in enumerate(self.step_texts):
             step_number = MathTex(f"{i + 1}.", font_size=self.step_size)
             step_text = Text(step, font_size=self.font_size)
-            step_group = VGroup(step_number, step_text).arrange(RIGHT, buff=0.2)
+            step_group = VGroup(step_number, step_text).arrange(RIGHT, center = False, aligned_edge=DOWN, buff=0.2)
+            step_group[1].shift(DOWN * 0.06)
             steps.add(step_group)
         
         steps.arrange(DOWN, center=False, aligned_edge=LEFT, buff=self.line_spacing)
