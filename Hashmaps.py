@@ -48,8 +48,8 @@ class HashFunction(Scene):
             self.buckets.add(bucket)
 
         # Arrange the buckets
-        self.buckets.arrange(DOWN, aligned_edge=LEFT, buff=0.365).next_to(
-            self.indices, RIGHT
+        self.buckets.arrange(DOWN, aligned_edge=LEFT, buff=0.37).next_to(
+            self.indices, RIGHT, aligned_edge=DOWN
         )
 
         # Add braces to look like hashmap
@@ -57,11 +57,15 @@ class HashFunction(Scene):
         self.rightBrace = Brace(self.buckets, RIGHT, sharpness=1)
         self.hashmap = VGroup(
             self.indices, self.buckets, self.leftBrace, self.rightBrace
-        )
+        ).shift(LEFT * 4 + (UP * 0.5))
 
+        # Adding hashmap title
         self.hashmapTitle = Text("Hashmap", font_size=35).next_to(
             self.hashmap, DOWN, buff=0.4
         )
+        
+        # Creating key-value pair
+        
 
     def animate_scene(self):
         """
@@ -75,7 +79,7 @@ class HashFunction(Scene):
         if self.showTitle:
             self.add(self.title)
 
-        self.add(self.steps)
+        # self.add(self.steps)
 
         self.add(self.hashmap)
         self.play(Write(self.hashmapTitle))
