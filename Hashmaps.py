@@ -26,16 +26,25 @@ class HashFunction(Scene):
         self.steps = Steps(steps).create()
 
         # Create hashmap
-        hashmap = {"Hello": 1, "World": 2, "StudyDSA": 3}
+        self.buckets = VGroup()
+        for index in range(5):
+            index_text = Text(f"Index", font_size=25, color=GRAY_C)
+            number = MathTex(f"{index}", font_size=40, color=GREEN)
+            array = Text(": []", font_size=25)
+            bucket = VGroup(index_text, number, array).arrange(
+                RIGHT, aligned_edge=DOWN, center=False, buff=0.2
+            )
+            self.buckets.add(bucket)
 
-        self.pairs = VGroup()
-        for key, value in hashmap.items():
-            key_text = Text(f"{key}:", font_size=25)
-            value_text = MathTex(value)
-            pair = VGroup(key_text, value_text).arrange(RIGHT, center = False, aligned_edge=DOWN)
-            self.pairs.add(pair)
+        # Arrange the buckets
+        self.buckets.arrange(DOWN, aligned_edge=LEFT, buff=0.2)
+
+        # Add braces to look like hashmap
+        self.leftBrace = Brace(self.buckets, LEFT, sharpness=1, buff=0.3)
+        self.rightBrace = Brace(self.buckets, RIGHT, sharpness=1, buff=0.3)
+        self.hashmap = VGroup(self.buckets, self.leftBrace, self.rightBrace)
         
-        self.pairs.arrange(UP, buff=0.5)
+        self.hashmapTitle = Text("Hashmap", font_size=35).next_to(self.hashmap, DOWN, buff=0.4)
 
     def animate_scene(self):
         """
@@ -51,4 +60,7 @@ class HashFunction(Scene):
 
         self.add(self.steps)
 
-        self.add(self.pairs)
+        self.add(self.hashmap)
+        self.play(Write(self.hashmapTitle))
+
+        self.wait(3)
