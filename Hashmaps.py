@@ -29,7 +29,7 @@ class HashFunction(Scene):
         self.indices = VGroup()
         for index in range(4):
             index_text = Text(f"Index", font_size=25, color=GRAY_C)
-            number = MathTex(f"{index}", font_size=40, color=GREEN)
+            number = MathTex(f"{index}", font_size=40, color=BLUE)
             group = VGroup(index_text, number).arrange(
                 RIGHT, aligned_edge=DOWN, center=False, buff=0.2
             )
@@ -60,12 +60,43 @@ class HashFunction(Scene):
         ).shift(LEFT * 4 + (UP * 0.5))
 
         # Adding hashmap title
-        self.hashmapTitle = Text("Hashmap", font_size=35).next_to(
+        self.hashmapTitle = Text("Hashmap", font_size=25).next_to(
             self.hashmap, DOWN, buff=0.4
         )
-        
+
         # Creating key-value pair
-        
+        size = 25
+
+        insertText = Text("Key-Value Pair:", font_size=size)
+        keyVal = Text(
+            '["StudyDSA"] = 100',
+            font_size=size,
+            t2c={
+                "[0:1]": "GRAY",
+                "[1:11]": "GREEN",
+                "[11:12]": "GRAY",
+                "[15:]": "ORANGE",
+            },
+        )
+        self.keyValuePair = (
+            VGroup(insertText, keyVal)
+            .arrange(RIGHT, buff=0.2)
+            .shift(UP * 1.5 + RIGHT * 2.5)
+        )
+
+        mathSize = 40
+        hashFunction = Text("Hash Function: ", font_size=size)
+        function = MathTex(
+            "f(key) = index",
+            font_size=mathSize,
+            tex_to_color_map={"key": GREEN, "index": BLUE},
+        )
+
+        self.hashFunction = (
+            VGroup(hashFunction, function)
+            .arrange(RIGHT, buff=0.1)
+            .next_to(self.keyValuePair, DOWN, buff=0.5, aligned_edge=LEFT)
+        )
 
     def animate_scene(self):
         """
@@ -79,9 +110,10 @@ class HashFunction(Scene):
         if self.showTitle:
             self.add(self.title)
 
-        # self.add(self.steps)
+        self.add(self.steps)
 
         self.add(self.hashmap)
-        self.play(Write(self.hashmapTitle))
+        self.add(self.hashmapTitle)
+        self.add(self.keyValuePair)
 
-        self.wait(3)
+        self.add(self.hashFunction)
