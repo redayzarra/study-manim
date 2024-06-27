@@ -113,6 +113,36 @@ class HashFunction(Scene):
         self.add(self.hashmap_title)
         self.add(self.key_value_pair)
         self.add(self.hash_function)
+
+        # Get the part of the MathTex corresponding to "key"
+        key_part = self.hash_function[1].get_part_by_tex("key")
+
+        # Create a Text object to transform into
+        target_key = (
+            Text('"StudyDSA"', font_size=25, color=GREEN)
+            .move_to(key_part.get_center())
+            .shift(RIGHT * 0.6)
+        )
+
+        # Transform the key part into the Text object
+        self.play(
+            Transform(key_part, target_key),
+            self.hash_function[1][2:]
+            .animate.move_to(target_key.get_center())
+            .shift(RIGHT * 1.8),
+            Write(self.steps[0], run_time=1.5),
+        )
+        self.wait()
+
+        self.play(
+            Transform(
+                self.hash_function[1][-1],
+                MathTex("2", font_size=40, color=BLUE)
+                .next_to(self.hash_function[1][-1].get_center())
+                .shift(LEFT * 0.75),
+            ),
+            Write(self.steps[1], run_time=1.5),
+        )
+        self.wait()
         
-        # Tranform the "key" into "StudyDSA" text from above
-        self.play(Transform(self.hash_function)) 
+        
