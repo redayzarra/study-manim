@@ -97,11 +97,6 @@ class HashFunction(Scene):
             .next_to(self.key_value_pair, DOWN, buff=0.5, aligned_edge=LEFT)
         )
 
-        # Create arrow
-        self.arrow = Arrow(
-            start=self.buckets[2].get_right(),
-            end=RIGHT * 3,
-        ).scale(0.5, scale_tips=True)
 
     def animate_scene(self):
         """
@@ -150,7 +145,17 @@ class HashFunction(Scene):
             Write(self.steps[1], run_time=1.5),
         )
         self.wait()
+        
+        # Create a new group containing copies of self.indices[2] and self.buckets[2]
+        index_two_copy = self.indices[2].copy()
+        bucket_two_copy = self.buckets[2].copy()
+        new_group = VGroup(index_two_copy, bucket_two_copy).arrange(RIGHT, buff=0.2).next_to(self.hash_function, DOWN, buff=0.5, aligned_edge = LEFT)
 
-        self.play(GrowArrow(self.arrow))
+        # Animate the transformation from the original objects to the new group
+        self.play(Transform(VGroup(self.indices[2], self.buckets[2]), new_group))
+        
+        self.wait()
+        
+        self.play(self.buckets[2][1][1].animate.shift(RIGHT))
 
         
