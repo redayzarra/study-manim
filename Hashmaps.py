@@ -97,7 +97,6 @@ class HashFunction(Scene):
             .next_to(self.key_value_pair, DOWN, buff=0.5, aligned_edge=LEFT)
         )
 
-
     def animate_scene(self):
         """
         Add elements to the scene and animate them.
@@ -135,27 +134,52 @@ class HashFunction(Scene):
         )
         self.wait()
 
+        two = (
+            MathTex("2", font_size=40, color=BLUE)
+            .next_to(self.hash_function[1][-1].get_center())
+            .shift(LEFT * 0.75)
+        )
+
         self.play(
-            Transform(
-                self.hash_function[1][-1],
-                MathTex("2", font_size=40, color=BLUE)
-                .next_to(self.hash_function[1][-1].get_center())
-                .shift(LEFT * 0.75),
-            ),
+            Transform(self.hash_function[1][-1], two),
             Write(self.steps[1], run_time=1.5),
         )
         self.wait()
-        
+
+        self.play(
+            Indicate(self.indices[2][-1], scale_factor=1.5, color=YELLOW),
+            Indicate(self.hash_function[1][-1], scale_factor=1.5, color=YELLOW),
+        )
+
         # Create a new group containing copies of self.indices[2] and self.buckets[2]
         index_two_copy = self.indices[2].copy()
         bucket_two_copy = self.buckets[2].copy()
-        new_group = VGroup(index_two_copy, bucket_two_copy).arrange(RIGHT, buff=0.2).next_to(self.hash_function, DOWN, buff=0.5, aligned_edge = LEFT)
+        new_group = (
+            VGroup(index_two_copy, bucket_two_copy)
+            .arrange(RIGHT, buff=0.2)
+            .next_to(self.hash_function, DOWN, buff=0.5, aligned_edge=LEFT)
+        )
 
         # Animate the transformation from the original objects to the new group
         self.play(Transform(VGroup(self.indices[2], self.buckets[2]), new_group))
-        
-        self.wait()
-        
-        self.play(self.buckets[2][1][1].animate.shift(RIGHT))
 
-        
+        self.wait()
+
+        text = Text(
+            '("StudyDSA", 100)',
+            font_size=25,
+            t2c={
+                "[0:1]": "GRAY",
+                "[1:11]": "GREEN",
+                "[11:12]": "GRAY",
+                "[13:16]": "ORANGE",
+                "[16:]": "GRAY",
+            },
+        ).next_to(self.buckets[2][1][0], RIGHT, buff=0.1)
+
+        self.play(
+            self.buckets[2][1][1].animate.next_to(text, RIGHT, buff=0.1),
+            Write(text),
+            Write(self.steps[2]),
+        )
+        self.wait(2)
