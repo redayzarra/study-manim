@@ -98,7 +98,10 @@ class HashFunction(Scene):
         )
 
         # Create arrow
-        self.arrow = Arrow(start = self.buckets[2].get_right(), end = RIGHT * 3)
+        self.arrow = Arrow(
+            start=self.buckets[2].get_right(),
+            end=RIGHT * 3,
+        ).scale(0.5, scale_tips=True)
 
     def animate_scene(self):
         """
@@ -127,27 +130,27 @@ class HashFunction(Scene):
             .shift(RIGHT * 0.6)
         )
 
-        # # Transform the key part into the Text object
-        # self.play(
-        #     Transform(key_part, target_key),
-        #     self.hash_function[1][2:]
-        #     .animate.move_to(target_key.get_center())
-        #     .shift(RIGHT * 1.8),
-        #     Write(self.steps[0], run_time=1.5),
-        # )
-        # self.wait()
+        # Transform the key part into the Text object
+        self.play(
+            Transform(key_part, target_key),
+            self.hash_function[1][2:]
+            .animate.move_to(target_key.get_center())
+            .shift(RIGHT * 1.8),
+            Write(self.steps[0], run_time=1.5),
+        )
+        self.wait()
 
-        # self.play(
-        #     Transform(
-        #         self.hash_function[1][-1],
-        #         MathTex("2", font_size=40, color=BLUE)
-        #         .next_to(self.hash_function[1][-1].get_center())
-        #         .shift(LEFT * 0.75),
-        #     ),
-        #     Write(self.steps[1], run_time=1.5),
-        # )
-        # self.wait()
+        self.play(
+            Transform(
+                self.hash_function[1][-1],
+                MathTex("2", font_size=40, color=BLUE)
+                .next_to(self.hash_function[1][-1].get_center())
+                .shift(LEFT * 0.75),
+            ),
+            Write(self.steps[1], run_time=1.5),
+        )
+        self.wait()
+
+        self.play(GrowArrow(self.arrow))
+
         
-        
-        self.add(self.arrow)
-        # self.play(GrowArrow(self.arrow))
