@@ -6,7 +6,7 @@ from components.watermark import create_watermark
 
 class HashFunction(Scene):
     def construct(self):
-        self.show_title = True
+        self.show_title = False
         self.construction()
         self.animate_scene()
 
@@ -21,7 +21,7 @@ class HashFunction(Scene):
         steps_list = [
             "Input the key into hash function",
             "Compute the hash value",
-            "Use hash value to determine the index in the hashmap",
+            "Use hash value to store key-value pair at index",
         ]
         self.steps = Steps(steps_list).create()
 
@@ -182,4 +182,4 @@ class HashFunction(Scene):
             Write(text),
             Write(self.steps[2]),
         )
-        self.wait(2)
+        self.wait()
